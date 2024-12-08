@@ -1,6 +1,5 @@
 import {
   flexRender,
-  functionalUpdate,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
@@ -9,7 +8,7 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -35,18 +34,18 @@ export function DataTable<TData, TValue>({
     pageSize,
   });
 
+  useEffect(() => {
+    onPageChange?.call(undefined, pagination.pageIndex);
+  }, [onPageChange, pagination.pageIndex])
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     pageCount,
-    onPaginationChange: (updater) =>
-      setPagination((old) => {
-        const value = functionalUpdate(updater, old);
-        onPageChange?.call(undefined, value.pageIndex);
-        return value;
-      }),
+    manualPagination: true,
+    onPaginationChange: setPagination,
     state: {
       pagination,
     },

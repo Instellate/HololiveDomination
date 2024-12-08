@@ -6,13 +6,7 @@ import { useMemo, useState } from 'react';
 import debounce from 'lodash.debounce';
 
 export async function clientLoader() {
-  const searchParams = new URLSearchParams(window.location.search);
-  const pageStr = searchParams.get('page');
-  const pageOrNaN = Number(pageStr);
-  const page = Number.isNaN(pageOrNaN) ? 0 : pageOrNaN;
-
-  const http = new Http();
-  return await http.getPosts(undefined, page);
+  return await new Http().getPosts(undefined, 0);
 }
 
 const intRegex = /^[0-9]+$/i;
@@ -60,12 +54,8 @@ export default function Posts({ loaderData }: Route.ComponentProps) {
           setTags(s);
         }}
         onPageChange={async (p) => {
-          if (page < p) {
-            const newUsers = (await new Http().getPosts(tags, p)).posts;
-            setPosts((o) => {
-              o.posts.push(...newUsers);
-              return o;
-            });
+          if (page !== p) {
+            setPosts(await new Http().getPosts(tags, p));
             setPage(p);
           }
         }}

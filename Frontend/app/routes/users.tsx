@@ -46,12 +46,8 @@ export default function Users({ loaderData }: Route.ComponentProps) {
           setSearch(s);
         }}
         onPageChange={async (p) => {
-          if (page < p) {
-            const newUsers = (await new Http().getUsers(search, p)).users;
-            setUsers((o) => {
-              o.users.push(...newUsers);
-              return o;
-            });
+          if (page !== p) {
+            setUsers(await new Http().getUsers(search, p));
             setPage(p);
           }
         }}
