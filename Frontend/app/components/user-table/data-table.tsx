@@ -17,6 +17,7 @@ interface DataTableProps<TData, TValue> {
   onPageChange?: (index: number) => void;
   pageCount: number;
   pageSize?: number;
+  page?: number;
 }
 
 export function DataTable<TData, TValue>({
@@ -26,9 +27,10 @@ export function DataTable<TData, TValue>({
   onPageChange,
   pageCount,
   pageSize = 20,
+  page,
 }: DataTableProps<TData, TValue>) {
   const [pagination, setPagination] = useState({
-    pageIndex: 0,
+    pageIndex: page ?? 0,
     pageSize,
   });
 

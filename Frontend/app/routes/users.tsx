@@ -6,8 +6,13 @@ import debounce from 'lodash.debounce';
 import Http from '~/lib/http';
 
 export async function clientLoader() {
+  const searchParams = new URLSearchParams(window.location.search);
+  const pageStr = searchParams.get('page');
+  const pageOrNaN = Number(pageStr);
+  const page = Number.isNaN(pageOrNaN) ? 0 : pageOrNaN;
+
   const http = new Http();
-  return await http.getUsers(undefined);
+  return await http.getUsers(undefined, page);
 }
 
 const guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -15,7 +20,12 @@ const guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[
 export default function Users({ loaderData }: Route.ComponentProps) {
   const [search, setSearch] = useState('');
   const [users, setUsers] = useState(loaderData);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const pageStr = searchParams.get('page');
+    const pageOrNaN = Number(pageStr);
+    return Number.isNaN(pageOrNaN) ? 0 : pageOrNaN;
+  });
 
   const debouncedSearch = useMemo(
     () =>

@@ -17,7 +17,8 @@ export async function clientLoader() {
   const pageStr = searchParams.get('page');
   const pageOrNaN = Number(pageStr ?? '0');
   const page = Number.isNaN(pageOrNaN) ? 0 : pageOrNaN;
-  return await new Http().getPosts(searchParams.get('page') ?? undefined, page);
+
+  return await new Http().getPosts(searchParams.get('tags') ?? undefined, page);
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
@@ -145,7 +146,11 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   async function reloadPosts(tags: string, page: number) {
     const http = new Http();
 
-    setPosts((await http.getPosts(tags, page)).posts);
+    if (tags) {
+      setPosts((await http.getPosts(tags, page)).posts);
+    } else {
+      setPosts((await http.getPosts(undefined, page)).posts);
+    }
   }
 
   return (
@@ -166,7 +171,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           currentPage={page + 1}
           totalPages={loaderData.pageCount}
           onPageChange={(pageNumber) => {
-            console.log(pageNumber);
             setPage(pageNumber - 1);
             reloadPosts(selectedTags.join(' '), pageNumber - 1);
           }}

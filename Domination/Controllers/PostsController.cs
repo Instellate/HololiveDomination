@@ -44,7 +44,7 @@ public class PostsController : ControllerBase
     {
         List<Post> posts;
         int itemCount;
-        if (tagsStr is not null)
+        if (!string.IsNullOrWhiteSpace(tagsStr))
         {
             string[] tags = tagsStr.Split(' ');
 
@@ -57,7 +57,8 @@ public class PostsController : ControllerBase
                 .Skip(10 * page)
                 .Take(10)
                 .ToListAsync(ct);
-            itemCount = await this._cache.GetOrCreateAsync($"posts:pages:{tagsStr}",
+            itemCount = await this._cache.GetOrCreateAsync(
+                $"posts:pages:{tagsStr}{(keepLewd ? ":isLewd" : "")}",
                 (e) =>
                 {
                     e.AbsoluteExpiration = DateTimeOffset.Now + TimeSpan.FromMinutes(15);
@@ -78,7 +79,8 @@ public class PostsController : ControllerBase
                 .Skip(10 * page)
                 .Take(10)
                 .ToListAsync(ct);
-            itemCount = await this._cache.GetOrCreateAsync("posts:pages",
+            itemCount = await this._cache.GetOrCreateAsync(
+                $"posts:pages{(keepLewd ? ":isLewd" : "")}",
                 (e) =>
                 {
                     e.AbsoluteExpiration = DateTimeOffset.Now + TimeSpan.FromMinutes(15);

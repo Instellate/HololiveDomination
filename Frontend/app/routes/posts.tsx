@@ -6,15 +6,25 @@ import { useMemo, useState } from 'react';
 import debounce from 'lodash.debounce';
 
 export async function clientLoader() {
+  const searchParams = new URLSearchParams(window.location.search);
+  const pageStr = searchParams.get('page');
+  const pageOrNaN = Number(pageStr);
+  const page = Number.isNaN(pageOrNaN) ? 0 : pageOrNaN;
+
   const http = new Http();
-  return await http.getPosts(undefined);
+  return await http.getPosts(undefined, page);
 }
 
 const intRegex = /^[0-9]+$/i;
 
 export default function Posts({ loaderData }: Route.ComponentProps) {
   const [posts, setPosts] = useState(loaderData);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const pageStr = searchParams.get('page');
+    const pageOrNaN = Number(pageStr);
+    return Number.isNaN(pageOrNaN) ? 0 : pageOrNaN;
+  });
   const [tags, setTags] = useState('');
 
   const debouncedSearch = useMemo(
@@ -28,7 +38,9 @@ export default function Posts({ loaderData }: Route.ComponentProps) {
             posts: [await http.getPost(Number(s))],
           });
         } else {
-          setPosts(await http.getPosts(s));
+          if (s.trim()) {
+            setPosts(await http.getPosts(s));
+          }
         }
       }, 250),
     [setPosts],
@@ -39,7 +51,7 @@ export default function Posts({ loaderData }: Route.ComponentProps) {
       <DataTable
         columns={postsColumns}
         data={posts.posts}
-        pageCount={posts.pageCount}
+        pageCount={2}
         onSearchChange={(s) => {
           debouncedSearch(s);
           setTags(s);
