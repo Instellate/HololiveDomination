@@ -6,13 +6,8 @@ import debounce from 'lodash.debounce';
 import Http from '~/lib/http';
 
 export async function clientLoader() {
-  const searchParams = new URLSearchParams(window.location.search);
-  const pageStr = searchParams.get('page');
-  const pageOrNaN = Number(pageStr);
-  const page = Number.isNaN(pageOrNaN) ? 0 : pageOrNaN;
-
   const http = new Http();
-  return await http.getUsers(undefined, page);
+  return await http.getUsers(undefined, 0);
 }
 
 const guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -20,12 +15,7 @@ const guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[
 export default function Users({ loaderData }: Route.ComponentProps) {
   const [search, setSearch] = useState('');
   const [users, setUsers] = useState(loaderData);
-  const [page, setPage] = useState(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const pageStr = searchParams.get('page');
-    const pageOrNaN = Number(pageStr);
-    return Number.isNaN(pageOrNaN) ? 0 : pageOrNaN;
-  });
+  const [page, setPage] = useState(0);
 
   const debouncedSearch = useMemo(
     () =>
@@ -37,8 +27,10 @@ export default function Users({ loaderData }: Route.ComponentProps) {
             pageCount: 1,
             users: [await http.getUser(s)],
           });
+          setPage(0);
         } else {
           setUsers(await http.getUsers(s));
+          setPage(0);
         }
       }, 250),
     [setUsers],
@@ -54,8 +46,12 @@ export default function Users({ loaderData }: Route.ComponentProps) {
           setSearch(s);
         }}
         onPageChange={async (p) => {
-          if (page !== p) {
-            setUsers(await new Http().getUsers(search, p));
+          if (page < p) {
+            const newUsers = (await new Http().getUsers(search, p)).users;
+            setUsers((o) => {
+              o.users.push(...newUsers);
+              return o;
+            });
             setPage(p);
           }
         }}

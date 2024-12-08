@@ -37,9 +37,11 @@ export default function Posts({ loaderData }: Route.ComponentProps) {
             pageCount: 1,
             posts: [await http.getPost(Number(s))],
           });
+          setPage(0);
         } else {
           if (s.trim()) {
             setPosts(await http.getPosts(s));
+            setPage(0);
           }
         }
       }, 250),
@@ -51,14 +53,19 @@ export default function Posts({ loaderData }: Route.ComponentProps) {
       <DataTable
         columns={postsColumns}
         data={posts.posts}
-        pageCount={2}
+        pageCount={posts.pageCount}
+        pageSize={10}
         onSearchChange={(s) => {
           debouncedSearch(s);
           setTags(s);
         }}
         onPageChange={async (p) => {
-          if (page !== p) {
-            setPosts(await new Http().getPosts(tags, p));
+          if (page < p) {
+            const newUsers = (await new Http().getPosts(tags, p)).posts;
+            setPosts((o) => {
+              o.posts.push(...newUsers);
+              return o;
+            });
             setPage(p);
           }
         }}
