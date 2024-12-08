@@ -118,6 +118,10 @@ export default class Http {
     return await this.baseRequest(`/api/posts/${postId}`, 'PATCH', body);
   }
 
+  public async deletePost(postId: string) {
+    return await this.baseRequest(`/api/posts/${postId}`, 'DELETE');
+  }
+
   public async getProviders() {
     return await this.baseRequest<string[]>('/api/authentication/providers', 'GET');
   }

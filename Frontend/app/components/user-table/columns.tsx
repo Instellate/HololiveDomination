@@ -10,7 +10,7 @@ import {
   AlertDialogCancel,
   AlertDialogDescription,
 } from '../ui/alert-dialog';
-import { Button } from '../ui/button';
+import { Button, buttonVariants } from '../ui/button';
 import { MoreHorizontal } from 'lucide-react';
 import { Input } from '../ui/input';
 import { Checkbox } from '../ui/checkbox';
@@ -310,7 +310,15 @@ export const postsColumns: ColumnDef<Post>[] = [
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <Button variant="destructive">Delete</Button>
+                    <AlertDialogAction
+                      type="button"
+                      className={buttonVariants({ variant: 'destructive' })}
+                      onClick={() => {
+                        new Http().deletePost(post.id);
+                      }}
+                    >
+                      Delete
+                    </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
