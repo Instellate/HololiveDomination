@@ -1,16 +1,19 @@
 using Domination.Entities;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Domination;
 
-public class HololiveDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
+public class HololiveDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>, IDataProtectionKeyContext
 {
     public DbSet<Post> Posts { get; init; } = null!;
     public DbSet<Tag> Tags { get; init; } = null!;
     public DbSet<TagLink> TagLinks { get; init; } = null!;
     public DbSet<Comment> Comments { get; init; } = null!;
+
+    public DbSet<DataProtectionKey> DataProtectionKeys { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

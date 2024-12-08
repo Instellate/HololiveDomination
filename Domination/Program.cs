@@ -4,6 +4,7 @@ using Domination.Entities;
 using Domination.Requirements;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Minio;
@@ -49,6 +50,9 @@ public static class Program
             o.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             o.Cookie.HttpOnly = true;
         });
+
+        builder.Services.AddDataProtection()
+            .PersistKeysToDbContext<HololiveDbContext>();
 
         builder.Services
             .AddAuthentication()
