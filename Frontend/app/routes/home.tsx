@@ -2,7 +2,7 @@ import Paginator from '~/components/paginator';
 import { cn } from '~/lib/utils';
 import { useSearchParams } from 'react-router';
 import type { Route } from './+types/home';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import Http from '~/lib/http';
 import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
@@ -12,8 +12,8 @@ export function meta() {
   return [{ title: 'Posts' }, { name: 'description', content: 'Hololive domination!' }];
 }
 
-export async function clientLoader() {
-  const searchParams = new URLSearchParams(window.location.search);
+export async function clientLoader({ request }: Route.ClientLoaderArgs) {
+  const searchParams = new URLSearchParams(request.url);
   const pageStr = searchParams.get('page');
   const pageOrNaN = Number(pageStr ?? '0');
   const page = Number.isNaN(pageOrNaN) ? 0 : pageOrNaN;
@@ -22,7 +22,7 @@ export async function clientLoader() {
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const [posts, setPosts] = useState(loaderData.posts);
+  const posts = loaderData.posts;
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedTags, setSelectedTags] = useState<string[]>(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -34,11 +34,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     }
   });
   const [searchTags, setSearchTags] = useState<string[]>([]);
-  const [page, setPage] = useState<number>(() => {
-    const pageStr = searchParams.get('page');
-    const pageOrNaN = Number(pageStr);
-    return Number.isNaN(pageOrNaN) ? 0 : pageOrNaN;
-  });
 
   const postsData = useMemo(() => {
     const postComponents: JSX.Element[] = [];
@@ -59,25 +54,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     }
     return postComponents;
   }, [posts]);
-
-  useEffect(() => {
-    const joinedTags = selectedTags.join(' ');
-    setSearchParams((s) => {
-      s.set('tags', joinedTags);
-      return s;
-    });
-    reloadPosts(joinedTags, page);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedTags]);
-
-  useEffect(() => {
-    setSearchParams((s) => {
-      s.set('page', String(page));
-      return s;
-    });
-    reloadPosts(selectedTags.join(' '), page);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
 
   const selectedTagsComponents = useMemo(() => {
     const components = [];
@@ -143,15 +119,11 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     [selectedTags],
   );
 
-  async function reloadPosts(tags: string, page: number) {
-    const http = new Http();
-
-    if (tags) {
-      setPosts((await http.getPosts(tags, page)).posts);
-    } else {
-      setPosts((await http.getPosts(undefined, page)).posts);
-    }
-  }
+  const page = (() => {
+    const pageStr = searchParams.get('page');
+    const pageOrNaN = Number(pageStr);
+    return Number.isNaN(pageOrNaN) ? 0 : pageOrNaN;
+  })();
 
   return (
     <>
@@ -169,10 +141,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         <div className="flex-warp flex gap-2">{selectedTagsComponents}</div>
         <Paginator
           currentPage={page + 1}
-          totalPages={loaderData.pageCount}
+          totalPages={5}
           onPageChange={(pageNumber) => {
-            setPage(pageNumber - 1);
-            reloadPosts(selectedTags.join(' '), pageNumber - 1);
+            setSearchParams((s) => {
+              s.set('page', String(pageNumber - 1));
+              return s;
+            });
           }}
           showPreviousNext
         />
