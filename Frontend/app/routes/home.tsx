@@ -2,11 +2,12 @@ import Paginator from '~/components/paginator';
 import { cn } from '~/lib/utils';
 import { useSearchParams } from 'react-router';
 import type { Route } from './+types/home';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Http from '~/lib/http';
 import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
 import debounce from 'lodash.debounce';
+import { functionalUpdate, type Updater } from '@tanstack/react-table';
 
 export function meta() {
   return [{ title: 'Posts' }, { name: 'description', content: 'Hololive domination!' }];
@@ -24,7 +25,7 @@ export async function clientLoader({ request }: Route.ClientLoaderArgs) {
 export default function Home({ loaderData }: Route.ComponentProps) {
   const posts = loaderData.posts;
   const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedTags, setSelectedTags] = useState<string[]>(() => {
+  const selectedTags = (() => {
     const searchParams = new URLSearchParams(window.location.search);
     const tags = searchParams.get('tags');
     if (tags?.trim()) {
@@ -32,7 +33,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     } else {
       return [];
     }
-  });
+  })();
   const [searchTags, setSearchTags] = useState<string[]>([]);
 
   const postsData = useMemo(() => {
@@ -54,6 +55,14 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     }
     return postComponents;
   }, [posts]);
+
+  const setSelectedTags = useCallback((updater: Updater<string[]>) => {
+    const value = functionalUpdate(updater, selectedTags);
+    setSearchParams((o) => {
+      o.set('tags', value.join(' '))
+      return o;
+    })
+  }, [selectedTags, setSearchParams]);
 
   const selectedTagsComponents = useMemo(() => {
     const components = [];
@@ -101,7 +110,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     }
 
     return components;
-  }, [searchTags, selectedTags]);
+  }, [searchTags, selectedTags, setSelectedTags]);
 
   const debouncedSearch = useMemo(
     () =>
