@@ -141,7 +141,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         <div className="flex-warp flex gap-2">{selectedTagsComponents}</div>
         <Paginator
           currentPage={page + 1}
-          totalPages={5}
+          totalPages={loaderData.pageCount}
           onPageChange={(pageNumber) => {
             setSearchParams((s) => {
               s.set('page', String(pageNumber - 1));
