@@ -13,7 +13,7 @@ export function meta() {
 }
 
 export async function clientLoader({ request }: Route.ClientLoaderArgs) {
-  const searchParams = new URLSearchParams(request.url);
+  const searchParams = new URLSearchParams(new URL(request.url).search);
   const pageStr = searchParams.get('page');
   const pageOrNaN = Number(pageStr ?? '0');
   const page = Number.isNaN(pageOrNaN) ? 0 : pageOrNaN;
