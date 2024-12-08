@@ -1,0 +1,99 @@
+#holo-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 34.75px;
+  height: 34.75px;
+  background-color: transparent;
+  border: none;
+}
+
+#holo-button:hover {
+  cursor: pointer;
+}
+
+#holo-button > div {
+  position: fixed;
+  border-radius: 100%;
+  background-color: transparent;
+  width: 34.75px;
+  height: 34.75px;
+  pointer-events: none;
+}
+
+#holo-button:hover > div {
+  background-color: rgb(29, 155, 240, 0.25);
+  opacity: 50%;
+}
+
+#holo-button::before {
+  font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  content: "";
+  width: 18.75px;
+  height: 18.75px;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2218.75px%22%20viewBox%3D%220%20-960%20960%20960%22%20width%3D%2218.75px%22%20fill%3D%22%23e8eaed%22%3E%3Cpath%20d%3D%22M440-160v-326L336-382l-56-58%20200-200%20200%20200-56%2058-104-104v326h-80ZM160-600v-120q0-33%2023.5-56.5T240-800h480q33%200%2056.5%2023.5T800-720v120h-80v-120H240v120h-80Z%22%2F%3E%3C%2Fsvg%3E");
+  background-color: rgb(113, 118, 123);
+  mask-size: cover;
+  opacity: 100%;
+  /* fill: rgb(113, 118, 123); */
+}
+
+#holo-button:hover::before {
+  background-color: rgb(29, 155, 240);
+}
+
+#holo-button-big {
+  position: relative;
+  height: 46px;
+  width: 38.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#holo-button-big > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 38.5px;
+  height: 38.5px;
+  background-color: transparent;
+  border: none;
+}
+
+#holo-button-big > button:hover {
+  cursor: pointer;
+}
+
+#holo-button-big > button > div {
+  position: fixed;
+  border-radius: 100%;
+  background-color: transparent;
+  width: 38.5px;
+  height: 38.5px;
+  pointer-events: none;
+}
+
+#holo-button-big:hover > button > div {
+  background-color: rgb(29, 155, 240, 0.25);
+  opacity: 50%;
+}
+
+#holo-button-big > button::before {
+  font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  content: "";
+  width: 22.5px;
+  height: 22.5px;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2222.5px%22%20viewBox%3D%220%20-960%20960%20960%22%20width%3D%2222.5px%22%20fill%3D%22%23e8eaed%22%3E%3Cpath%20d%3D%22M440-160v-326L336-382l-56-58%20200-200%20200%20200-56%2058-104-104v326h-80ZM160-600v-120q0-33%2023.5-56.5T240-800h480q33%200%2056.5%2023.5T800-720v120h-80v-120H240v120h-80Z%22%2F%3E%3C%2Fsvg%3E");
+  background-color: rgb(113, 118, 123);
+  mask-size: cover;
+  opacity: 100%;
+  /* fill: rgb(113, 118, 123); */
+}
+
+#holo-button-big > button:hover::before {
+  background-color: rgb(29, 155, 240);
+}

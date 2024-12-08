@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload</title>
+  </head>
+  <body>
+    <div id="app">
+      <form id="upload-form">
+        <label for="tags">Tags</label>
+        <input type="text" name="tags" id="tags" />
+        <label for="author">Author</label>
+        <input type="text" name="author" id="author" />
+        <label for="id">ID</label>
+        <input type="text" name="id" id="id" />
+        <label for="isLewd">Is lewd</label>
+        <input type="checkbox" name="isLewd" id="is-lewd" />
+        <label for="service">Service</label>
+        <input type="text" name="service" id="service" />
+        <input type="submit" value="Submit" id="submit">
+      </form>
+      <span id="error"></span>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
