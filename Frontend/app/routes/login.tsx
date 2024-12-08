@@ -1,6 +1,6 @@
 import { useAccount } from '~/lib/account';
 import type { Route } from './+types/login';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { useMemo } from 'react';
 import { Button } from '~/components/ui/button';
@@ -28,11 +28,9 @@ export default function SignIn({ loaderData }: Route.ComponentProps) {
         }).toString();
 
       components.push(
-        <>
-          <Link to={link}>
-            <Button variant="secondary">Login with {provider}</Button>
-          </Link>
-        </>,
+        <a href={link}>
+          <Button variant="secondary">Login with {provider}</Button>
+        </a>,
       );
     }
 

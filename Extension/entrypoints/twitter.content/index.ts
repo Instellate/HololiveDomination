@@ -105,6 +105,7 @@ export default defineContentScript({
         const imageLinkWithoutQuery = imageElement.src.split("?")[0];
         const searchParams = new URLSearchParams();
         searchParams.set("format", "png");
+        searchParams.set("name", "large");
         const imageLink = `${imageLinkWithoutQuery}?${searchParams.toString()}`;
 
         const values = /https:\/\/.+\/([a-zA-Z0-9\._-]+)\/status\/([0-9]+)(?:\/.*)?/.exec(

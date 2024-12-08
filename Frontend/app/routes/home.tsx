@@ -23,9 +23,15 @@ export async function clientLoader() {
 export default function Home({ loaderData }: Route.ComponentProps) {
   const [posts, setPosts] = useState(loaderData.posts);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedTags, setSelectedTags] = useState<string[]>(
-    new URLSearchParams(window.location.search).get('tags')?.split(' ') ?? [],
-  );
+  const [selectedTags, setSelectedTags] = useState<string[]>(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const tags = searchParams.get('tags');
+    if (tags?.trim()) {
+      return tags.trim().split(' ');
+    } else {
+      return [];
+    }
+  });
   const [searchTags, setSearchTags] = useState<string[]>([]);
   const [page, setPage] = useState<number>(() => {
     const pageStr = searchParams.get('page');
@@ -60,7 +66,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       return s;
     });
     reloadPosts(joinedTags, page);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTags]);
 
   useEffect(() => {
@@ -69,8 +75,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       return s;
     });
     reloadPosts(selectedTags.join(' '), page);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
 
   const selectedTagsComponents = useMemo(() => {
     const components = [];
