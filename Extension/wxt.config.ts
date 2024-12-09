@@ -8,6 +8,10 @@ export default defineConfig({
   },
   manifest: {
     permissions: ["storage"],
-    host_permissions: ["https://localhost/*"],
+    host_permissions: [
+      "https://localhost/*",
+      "https://*.pximg.net/*",
+      "https://*.pixiv.net/*"
+    ],
   },
 });

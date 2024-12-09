@@ -1,5 +1,6 @@
 import { sendMessage, ServiceType } from "@/utils/messaging";
 import "./styles.css";
+import { TwitterOpenApi } from "twitter-openapi-typescript";
 
 export default defineContentScript({
   matches: ["https://twitter.com/*", "https://x.com/*"],
@@ -42,7 +43,7 @@ export default defineContentScript({
       const button = document.createElement("button");
       button.id = "holo-button";
       button.appendChild(document.createElement("div"));
-      button.addEventListener("click", () => {
+      button.addEventListener("click", async () => {
         const imageElement: HTMLImageElement = anchor.querySelector(
           "div>div:nth-of-type(2)>div>img"
         )!;
@@ -57,12 +58,23 @@ export default defineContentScript({
         const creator = values![1];
         const id = values![2];
 
+        const cookieMap: Record<string, string> = {};
+        document.cookie
+          .split("; ")
+          .forEach(s => cookieMap[s.split("=")[0]] = s.split("=")[1]);
+
+        const api = new TwitterOpenApi();
+        const client = await api.getClientFromCookies(cookieMap);
+        const tweetDetail = await client.getTweetApi().getTweetDetail({ focalTweetId: id });
+        console.log(tweetDetail);
+
+        return;
         sendMessage("uploadForm", {
           author: creator,
           id,
           serviceType: ServiceType.Twitter,
           imageLink,
-        }).then((r) => console.log("Got response:", r));
+        });
       });
       element.appendChild(button);
     }
@@ -98,7 +110,7 @@ export default defineContentScript({
 
       const button = document.createElement("button");
       button.appendChild(document.createElement("div"));
-      button.addEventListener("click", () => {
+      button.addEventListener("click", async () => {
         const imageElement: HTMLImageElement = anchor.querySelector(
           "div>div:nth-of-type(2)>div>img"
         )!;
@@ -114,12 +126,12 @@ export default defineContentScript({
         const creator = values![1];
         const id = values![2];
 
-        sendMessage("uploadForm", {
+        await sendMessage("uploadForm", {
           author: creator,
           id,
           serviceType: ServiceType.Twitter,
           imageLink,
-        }).then((r) => console.log("Got response:", r));
+        });
       });
 
       elem.appendChild(button);

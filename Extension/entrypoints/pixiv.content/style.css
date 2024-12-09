@@ -1,0 +1,15 @@
+#holo-button {
+    width: 32px;
+    height: 100%;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    margin-right: 13px;
+}
+
+#holo-button:hover {
+    cursor: pointer;
+}

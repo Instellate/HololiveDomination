@@ -7,14 +7,16 @@ export default defineBackground(() => {
     searchParams.set("id", data.data.id);
     searchParams.set("service", "Twitter");
     searchParams.set("imageLink", data.data.imageLink);
+    if (data.data.prefilledTags) {
+      searchParams.set("tags", data.data.prefilledTags);
+    }
 
     browser.windows.create({
       url: `${browser.runtime.getURL("/upload.html")}?${searchParams.toString()}`,
       width: 400,
       height: 600,
+      type: 'popup'
     });
-
-    return "";
   });
 
   onMessage("upload", async (data) => {
@@ -39,4 +41,9 @@ export default defineBackground(() => {
       return await response.json();
     }
   });
+
+  onMessage("fetch", async (data) => {
+    const { url, init } = data.data;
+    return await fetch(url, init).then(r => r.json());
+  })
 });

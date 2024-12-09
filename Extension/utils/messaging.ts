@@ -7,7 +7,8 @@ interface ProtocolMap {
     id: string;
     serviceType: ServiceType;
     imageLink: string;
-  }): string;
+    prefilledTags?: string;
+  }): void;
 
   upload(data: {
     author: string;
@@ -17,6 +18,8 @@ interface ProtocolMap {
     tags: string;
     isLewd: boolean;
   }): unknown | undefined;
+
+  fetch(data: { url: string | URL | globalThis.Request, init?: RequestInit }): unknown;
 }
 
 export enum ServiceType {
