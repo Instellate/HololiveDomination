@@ -130,7 +130,7 @@ public class PostsController : ControllerBase
         [FromForm] string service,
         CancellationToken ct = default)
     {
-        if (Enum.TryParse(service, out PostService serviceType))
+        if (!Enum.TryParse(service, out PostService serviceType))
         {
             return BadRequest("Invalid service type");
         }
