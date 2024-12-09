@@ -16,7 +16,7 @@ interface ProtocolMap {
     imageLink: string;
     tags: string;
     isLewd: boolean;
-  }): unknown | undefined;
+  }): string | undefined;
 
   fetch(data: { url: string | URL | globalThis.Request; init?: RequestInit }): unknown;
 }

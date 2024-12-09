@@ -1,12 +1,11 @@
-import { onMessage } from "@/utils/messaging";
-import { TwitterOpenApi } from "twitter-openapi-typescript";
+import { onMessage, ServiceType } from "@/utils/messaging";
 
 export default defineBackground(() => {
   onMessage("uploadForm", async (data) => {
     const searchParams = new URLSearchParams();
     searchParams.set("author", data.data.author);
     searchParams.set("id", data.data.id);
-    searchParams.set("service", "Twitter");
+    searchParams.set("service", data.data.serviceType);
     searchParams.set("imageLink", data.data.imageLink);
     if (data.data.prefilledTags) {
       searchParams.set("tags", data.data.prefilledTags);
@@ -21,7 +20,18 @@ export default defineBackground(() => {
   });
 
   onMessage("upload", async (data) => {
-    const imageResp = await fetch(data.data.imageLink);
+    let referrer = undefined;
+    if (data.data.serviceType === ServiceType.Pixiv) {
+      console.log("Hello!");
+      referrer = "https://www.pixiv.net/";
+    }
+    const imageResp = await fetch(data.data.imageLink, {
+      referrer,
+    });
+    if (!imageResp.ok) {
+      return await imageResp.text();
+    }
+
     const imageBlob = await imageResp.blob();
 
     const formdata = new FormData();
@@ -39,7 +49,7 @@ export default defineBackground(() => {
     });
 
     if (!response.ok) {
-      return await response.json();
+      return await response.text();
     }
   });
 

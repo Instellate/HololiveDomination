@@ -19,10 +19,14 @@ idElement.value = id;
 serviceElement.value = service;
 tagsElement.value = tags ?? "";
 
+const submitButton = document.getElementById("submit")! as HTMLInputElement;
+const error = document.getElementById("error")!;
+
 const uploadForm = document.getElementById("upload-form")! as HTMLFormElement;
 uploadForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const response = await sendMessage('upload', {
+  submitButton.disabled = true;
+  const response = await sendMessage("upload", {
     author: authorElement.value,
     id: id,
     serviceType: serviceElement.value as ServiceType,
@@ -30,8 +34,10 @@ uploadForm.addEventListener("submit", async (e) => {
     tags: tagsElement.value,
     isLewd: isLewdElement.checked,
   });
+
   if (response) {
-    console.log(response);
+    submitButton.disabled = false;
+    error.innerText = response;
   } else {
     window.close();
   }
