@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Net.Http.Headers;
 using Domination.Entities;
 using Domination.Structures;
 using Microsoft.AspNetCore.Authorization;
@@ -256,6 +257,13 @@ public class PostsController : ControllerBase
             .WithObject(id)
             .WithCallbackStream(s => s.CopyTo(stream));
         await this._minio.GetObjectAsync(getObject, ct);
+
+        CacheControlHeaderValue cacheControl = new()
+        {
+            Public = true,
+            SharedMaxAge = TimeSpan.FromHours(1)
+        };
+        Response.Headers.Append("Cache-Control", cacheControl.ToString());
 
         stream.Position = 0;
         return File(stream, postInfo.ContentType);
