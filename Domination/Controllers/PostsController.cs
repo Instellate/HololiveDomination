@@ -102,7 +102,7 @@ public class PostsController : ControllerBase
                 Url = post.Service switch
                 {
                     PostService.Twitter => $"https://twitter.com/{post.Author}/status/{post.Id}",
-                    PostService.Pixiv => $"https://pixiv.net/en/artwork/{post.Id}",
+                    PostService.Pixiv => $"https://pixiv.net/en/artworks/{post.Id}",
                     _ => throw new ArgumentOutOfRangeException()
                 },
             };
@@ -222,7 +222,7 @@ public class PostsController : ControllerBase
             Url = post.Service switch
             {
                 PostService.Twitter => $"https://twitter.com/{post.Author}/status/{post.Id}",
-                PostService.Pixiv => $"https://pixiv.net/en/artwork/{post.Id}",
+                PostService.Pixiv => $"https://pixiv.net/en/artworks/{post.Id}",
                 _ => throw new ArgumentOutOfRangeException()
             }
         };
