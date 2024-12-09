@@ -261,7 +261,7 @@ public class PostsController : ControllerBase
         CacheControlHeaderValue cacheControl = new()
         {
             Public = true,
-            SharedMaxAge = TimeSpan.FromHours(1)
+            MaxAge = TimeSpan.FromHours(1)
         };
         Response.Headers.Append("Cache-Control", cacheControl.ToString());
 
