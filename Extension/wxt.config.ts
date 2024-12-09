@@ -11,7 +11,8 @@ export default defineConfig({
     host_permissions: [
       "https://localhost/*",
       "https://*.pximg.net/*",
-      "https://*.pixiv.net/*"
+      "https://*.pixiv.net/*",
+      "https://raw.githubusercontent.com/*"
     ],
   },
 });

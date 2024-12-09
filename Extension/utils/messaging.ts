@@ -1,5 +1,4 @@
 import { defineExtensionMessaging } from "@webext-core/messaging";
-import { User } from "./http";
 
 interface ProtocolMap {
   uploadForm(data: {
@@ -19,7 +18,7 @@ interface ProtocolMap {
     isLewd: boolean;
   }): unknown | undefined;
 
-  fetch(data: { url: string | URL | globalThis.Request, init?: RequestInit }): unknown;
+  fetch(data: { url: string | URL | globalThis.Request; init?: RequestInit }): unknown;
 }
 
 export enum ServiceType {

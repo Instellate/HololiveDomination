@@ -1,4 +1,5 @@
 import { onMessage } from "@/utils/messaging";
+import { TwitterOpenApi } from "twitter-openapi-typescript";
 
 export default defineBackground(() => {
   onMessage("uploadForm", async (data) => {
@@ -15,7 +16,7 @@ export default defineBackground(() => {
       url: `${browser.runtime.getURL("/upload.html")}?${searchParams.toString()}`,
       width: 400,
       height: 600,
-      type: 'popup'
+      type: "popup",
     });
   });
 
@@ -34,7 +35,7 @@ export default defineBackground(() => {
     const response = await fetch(import.meta.env.VITE_DOMINATION_API_URL + "/api/posts", {
       method: "POST",
       body: formdata,
-      credentials: 'include'
+      credentials: "include",
     });
 
     if (!response.ok) {
@@ -44,6 +45,6 @@ export default defineBackground(() => {
 
   onMessage("fetch", async (data) => {
     const { url, init } = data.data;
-    return await fetch(url, init).then(r => r.json());
-  })
+    return await fetch(url, init).then((r) => r.json());
+  });
 });

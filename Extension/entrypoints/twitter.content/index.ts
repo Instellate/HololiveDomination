@@ -1,6 +1,67 @@
 import { sendMessage, ServiceType } from "@/utils/messaging";
 import "./styles.css";
-import { TwitterOpenApi } from "twitter-openapi-typescript";
+import { TwitterOpenApi, TwitterOpenApiClient } from "twitter-openapi-typescript";
+import HololiveTags from "@/hololive-tags.json";
+import HololiveGens from "@/hololive-gens.json";
+
+let api: undefined | TwitterOpenApi;
+let client: undefined | TwitterOpenApiClient;
+async function getClient(): Promise<TwitterOpenApiClient> {
+  if (!api) {
+    api = new TwitterOpenApi();
+    api.setAdditionalBrowserHeaders({
+      "User-Agent": window.navigator.userAgent,
+    });
+  }
+
+  if (!client) {
+    const cookieMap: Record<string, string> = {};
+    document.cookie.split("; ").forEach((s) => (cookieMap[s.split("=")[0]] = s.split("=")[1]));
+    client = await api.getClientFromCookies(cookieMap);
+  }
+
+  return client;
+}
+
+async function getTags(id: string) {
+  const description: string | undefined =
+    (await (async () => {
+      let description;
+      try {
+        const client = await getClient();
+        const tweetDetails = await client.getTweetApi().getTweetDetail({ focalTweetId: id });
+
+        description = tweetDetails.data.data[0].tweet.legacy?.fullText;
+      } catch {
+        return;
+      }
+
+      return description;
+    })()) ?? undefined;
+
+  const tags: string[] = [];
+  if (description) {
+    const unfilteredTags = description?.split(/ |\n/).filter((t) => t.startsWith("#"));
+
+    for (const tag of unfilteredTags) {
+      const hololiveTags: Record<string, string> = HololiveTags;
+      const talent = hololiveTags[tag];
+      if (talent) {
+        tags.push(talent);
+      }
+    }
+
+    for (const tag of tags) {
+      const hololiveGens: Record<string, string> = HololiveGens;
+      const gen = hololiveGens[tag];
+      if (!tags.includes(gen)) {
+        tags.push(gen);
+      }
+    }
+  }
+
+  return tags;
+}
 
 export default defineContentScript({
   matches: ["https://twitter.com/*", "https://x.com/*"],
@@ -58,22 +119,14 @@ export default defineContentScript({
         const creator = values![1];
         const id = values![2];
 
-        const cookieMap: Record<string, string> = {};
-        document.cookie
-          .split("; ")
-          .forEach(s => cookieMap[s.split("=")[0]] = s.split("=")[1]);
+        const tags = await getTags(id);
 
-        const api = new TwitterOpenApi();
-        const client = await api.getClientFromCookies(cookieMap);
-        const tweetDetail = await client.getTweetApi().getTweetDetail({ focalTweetId: id });
-        console.log(tweetDetail);
-
-        return;
         sendMessage("uploadForm", {
           author: creator,
           id,
           serviceType: ServiceType.Twitter,
           imageLink,
+          prefilledTags: tags.join(" "),
         });
       });
       element.appendChild(button);
@@ -126,11 +179,14 @@ export default defineContentScript({
         const creator = values![1];
         const id = values![2];
 
+        const tags = await getTags(id);
+
         await sendMessage("uploadForm", {
           author: creator,
           id,
           serviceType: ServiceType.Twitter,
           imageLink,
+          prefilledTags: tags.join(" "),
         });
       });
 
