@@ -12,7 +12,13 @@ export default defineConfig({
       "https://localhost/*",
       "https://*.pximg.net/*",
       "https://*.pixiv.net/*",
-      "https://raw.githubusercontent.com/*"
+      "https://raw.githubusercontent.com/*",
     ],
+    browser_specific_settings: {
+      gecko: {
+        id: "hololive-domination@instellate.xyz",
+      },
+    },
+    description: "A extension to quickly upload to the hololive domination API"
   },
 });

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Minio;
 using Minio.DataModel;
 using Minio.DataModel.Args;
+using NuGet.Protocol;
 
 namespace Domination.Controllers;
 
@@ -126,9 +127,14 @@ public class PostsController : ControllerBase
         [FromForm] string author,
         [FromForm] string id,
         [FromForm] bool isLewd,
-        [FromForm] PostService serviceType,
+        [FromForm] string service,
         CancellationToken ct = default)
     {
+        if (Enum.TryParse(service, out PostService serviceType))
+        {
+            return BadRequest("Invalid service type");
+        }
+
         // ReSharper disable once MethodSupportsCancellation It does indeed not support it :blehh:
         if (await this._db.Posts.FindAsync(id) is not null)
         {
