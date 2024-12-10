@@ -23,6 +23,8 @@ import {
 } from '../ui/dropdown-menu';
 import { DateFormatter } from '@internationalized/date';
 import FormCheckbox from '../form-checkbox';
+import { Tooltip, TooltipProvider } from '../ui/tooltip';
+import { TooltipContent, TooltipTrigger } from '@radix-ui/react-tooltip';
 
 export const userColumns: ColumnDef<StaffUser>[] = [
   {
@@ -89,7 +91,7 @@ export const userColumns: ColumnDef<StaffUser>[] = [
                       })
                     }
                   />
-                  <small className='opacity-50'>Only enter one role if you edit this field</small>
+                  <small className="opacity-50">Only enter one role if you edit this field</small>
                 </div>
                 <FormCheckbox
                   id="removeUsername"
@@ -174,11 +176,26 @@ export const postsColumns: ColumnDef<Post>[] = [
     cell: ({ row }) => {
       const post = row.original;
       return (
-        <a href={post.url}>
-          <Button variant="link" className="p-0">
-            {post.id}
-          </Button>
-        </a>
+        <TooltipProvider delayDuration={200} disableHoverableContent>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <a href={post.url}>
+                <Button variant="link" className="p-0">
+                  {post.id}
+                </Button>
+              </a>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              <div className="w-64 rounded-sm border border-border bg-background p-4">
+                <img
+                  className="rounded-sm"
+                  src={`${import.meta.env.VITE_DOMINATION_API_URL}/api/posts/${post.id}/image`}
+                  loading="lazy"
+                />
+              </div>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       );
     },
   },
