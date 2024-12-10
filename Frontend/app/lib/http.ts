@@ -5,6 +5,13 @@ export type User = {
   roles: string[];
 };
 
+/** The difference between StaffUser and User is StaffUser contains information only staff should know */
+export interface StaffUser extends User {
+  canChangeUsername: boolean;
+  canComment: boolean;
+  isBanned: boolean;
+}
+
 export type EditUser = {
   role: string;
   removeUsername: boolean;
@@ -14,7 +21,7 @@ export type EditUser = {
 };
 
 export type GetUsers = {
-  users: User[];
+  users: StaffUser[];
   pageCount: number;
 };
 
@@ -101,7 +108,7 @@ export default class Http {
   }
 
   public async getUser(userId: string) {
-    return await this.baseRequest<User>(`/api/users/${userId}`, 'GET');
+    return await this.baseRequest<StaffUser>(`/api/users/${userId}`, 'GET');
   }
 
   public async getPosts(tags: string | undefined, page: number = 0, keepLewd: boolean = true) {

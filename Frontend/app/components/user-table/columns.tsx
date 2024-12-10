@@ -14,7 +14,7 @@ import { Button, buttonVariants } from '../ui/button';
 import { MoreHorizontal } from 'lucide-react';
 import { Input } from '../ui/input';
 import { useState } from 'react';
-import Http, { type EditPost, type EditUser, type Post, type User } from '~/lib/http';
+import Http, { type EditPost, type EditUser, type Post, type StaffUser } from '~/lib/http';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,7 +24,7 @@ import {
 import { DateFormatter } from '@internationalized/date';
 import FormCheckbox from '../form-checkbox';
 
-export const userColumns: ColumnDef<User>[] = [
+export const userColumns: ColumnDef<StaffUser>[] = [
   {
     accessorKey: 'username',
     header: 'Username',
@@ -75,19 +75,22 @@ export const userColumns: ColumnDef<User>[] = [
               <AlertDialogHeader>
                 <AlertDialogTitle>Edit user {user.username}</AlertDialogTitle>
               </AlertDialogHeader>
-              <div className="flex w-80 flex-col gap-2">
-                <Input
-                  placeholder="Role.."
-                  value={editUser.role}
-                  onChange={(e) =>
-                    setEditUser((o) => {
-                      return {
-                        ...o,
-                        role: e.target.value,
-                      };
-                    })
-                  }
-                />
+              <div className="flex w-80 flex-col gap-4">
+                <div>
+                  <Input
+                    placeholder="Role..."
+                    value={editUser.role ?? user.roles}
+                    onChange={(e) =>
+                      setEditUser((o) => {
+                        return {
+                          ...o,
+                          role: e.target.value,
+                        };
+                      })
+                    }
+                  />
+                  <small className='opacity-50'>Only enter one role if you edit this field</small>
+                </div>
                 <FormCheckbox
                   id="removeUsername"
                   checked={editUser.removeUsername}
@@ -104,7 +107,7 @@ export const userColumns: ColumnDef<User>[] = [
                 </FormCheckbox>
                 <FormCheckbox
                   id="disallowChangingUsername"
-                  checked={editUser.disallowChangingUsername}
+                  checked={editUser.disallowChangingUsername ?? !user.canChangeUsername}
                   onCheckedChange={(c) =>
                     setEditUser((o) => {
                       return {
@@ -118,7 +121,7 @@ export const userColumns: ColumnDef<User>[] = [
                 </FormCheckbox>
                 <FormCheckbox
                   id="disallowCommenting"
-                  checked={editUser.disallowCommenting}
+                  checked={editUser.disallowCommenting ?? !user.canComment}
                   onCheckedChange={(c) =>
                     setEditUser((o) => {
                       return {
@@ -132,7 +135,7 @@ export const userColumns: ColumnDef<User>[] = [
                 </FormCheckbox>
                 <FormCheckbox
                   id="isBanned"
-                  checked={editUser.isBanned}
+                  checked={editUser.isBanned ?? user.isBanned}
                   onCheckedChange={(c) =>
                     setEditUser((o) => {
                       return {
@@ -222,7 +225,6 @@ export const postsColumns: ColumnDef<Post>[] = [
     cell: ({ row }) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const [editPost, setEditPost] = useState<Partial<EditPost>>({});
-
       const post = row.original;
 
       return (
@@ -272,7 +274,7 @@ export const postsColumns: ColumnDef<Post>[] = [
                     />
                     <FormCheckbox
                       id="isLewd"
-                      checked={editPost.isLewd}
+                      checked={editPost.isLewd ?? post.isLewd}
                       onCheckedChange={(c) =>
                         setEditPost((o) => {
                           return {

@@ -65,12 +65,16 @@ public class UsersController : ControllerBase
         List<UserResponse> response = new(users.Count);
         foreach (User user in users)
         {
-            response.Add(new UserResponse
+            bool isBanned = await this._userManager.IsInRoleAsync(user, "Banned");
+            response.Add(new StaffUserResponse
             {
                 Id = user.Id,
                 Username = user.UserName ?? "No username",
                 Email = user.Email ?? "No email",
                 Roles = await this._userManager.GetRolesAsync(user),
+                CanChangeUsername = user.CanChangeUsername,
+                CanComment = user.CanComment,
+                IsBanned = isBanned,
             });
         }
 
@@ -91,12 +95,16 @@ public class UsersController : ControllerBase
             return Unauthorized();
         }
 
-        UserResponse response = new()
+        bool isBanned = await this._userManager.IsInRoleAsync(user, "Banned");
+        StaffUserResponse response = new()
         {
             Id = user.Id,
             Username = user.UserName ?? "No username",
             Email = user.Email ?? "No email",
             Roles = await this._userManager.GetRolesAsync(user),
+            CanChangeUsername = user.CanChangeUsername,
+            CanComment = user.CanComment,
+            IsBanned = isBanned,
         };
 
         return Ok(response);
@@ -178,6 +186,11 @@ public class UsersController : ControllerBase
             if (requestorHighestRole <= bodyRole)
             {
                 return Forbid();
+            }
+
+            if (requestorRoles.Contains("Banned"))
+            {
+                return BadRequest("User is banned");
             }
 
             IdentityResult removeResult = await this._userManager.RemoveFromRolesAsync(
