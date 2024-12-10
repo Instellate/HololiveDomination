@@ -1,14 +1,16 @@
-import './style.css';
+import "./style.css";
 
 const apiUrlElement = document.getElementById("apiUrl")! as HTMLInputElement;
 const errorSpan = document.getElementById("error")!;
 
-browser.storage.sync
-  .get()
-  .then(v => apiUrlElement.value = v["api-url"] ?? "");
+let apiUrl: string | undefined;
+browser.storage.sync.get().then((v) => {
+  apiUrlElement.value = v["api-url"] ?? "";
+  apiUrl = v["api-url"];
+});
 
 const formElement = document.getElementById("form")! as HTMLFormElement;
-formElement.addEventListener('submit', async (e) => {
+formElement.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   let value = apiUrlElement.value.trim();
@@ -17,14 +19,12 @@ formElement.addEventListener('submit', async (e) => {
   }
 
   let formattedUrl;
-  if (value.endsWith('/')) {
+  if (value.endsWith("/")) {
     formattedUrl = value + "*";
   } else {
     formattedUrl = value + "/*";
   }
 
-  const storage = await browser.storage.sync.get();
-  const apiUrl: string | undefined = storage["api-url"];
   if (apiUrl) {
     const _removed = await browser.permissions.remove({
       origins: [apiUrl.startsWith("/") ? apiUrl + "*" : apiUrl + "/*"],
@@ -34,9 +34,10 @@ formElement.addEventListener('submit', async (e) => {
   let isAdded;
   try {
     isAdded = await browser.permissions.request({
-      origins: [formattedUrl]
+      origins: [formattedUrl],
     });
-  } catch {
+  } catch (error: unknown) {
+    console.log(error);
     errorSpan.innerText = "Invalid URL";
     return;
   }
@@ -47,5 +48,5 @@ formElement.addEventListener('submit', async (e) => {
     errorSpan.innerText = "Couldn't add url";
   }
 
-  await browser.storage.sync.set({ 'api-url': value });
+  await browser.storage.sync.set({ "api-url": value });
 });

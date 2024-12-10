@@ -1,7 +1,7 @@
-import { ServiceType } from '@/utils/messaging';
-import HololiveTalents from '@/hololive-talents.json';
-import HololiveGens from '@/hololive-gens.json';
-import './style.css'
+import { ServiceType } from "@/utils/messaging";
+import HololiveTalents from "@/hololive-talents.json";
+import HololiveGens from "@/hololive-gens.json";
+import "./style.css";
 
 type PixivOEmbed = {
   version: string;
@@ -16,22 +16,32 @@ type PixivOEmbed = {
   author_url: string;
   provider_name: string;
   provider_url: string;
-}
+};
 
 export default defineContentScript({
   matches: ["https://*.pixiv.net/*", "https://pixiv.net/*"],
-  main() {
+  async main() {
+    const storage = await browser.storage.sync.get();
+    const apiUrl = storage["api-url"];
+    if (!apiUrl) {
+      return;
+    }
+
     const mutationObserver = new window.MutationObserver(injectButton);
     mutationObserver.observe(document.body, { childList: true, subtree: true });
 
     function injectButton() {
-      const image: null | HTMLAnchorElement = document.querySelector(".gtm-expand-full-size-illust");
+      const image: null | HTMLAnchorElement = document.querySelector(
+        ".gtm-expand-full-size-illust"
+      );
       if (!image) {
         return;
       }
 
-      const toolbar: Element | null = image
-        .parentElement?.parentElement?.parentElement?.parentElement?.parentElement?.querySelector('div:nth-of-type(5)>div>div:nth-of-type(2)>section') ?? null;
+      const toolbar: Element | null =
+        image.parentElement?.parentElement?.parentElement?.parentElement?.parentElement?.querySelector(
+          "div:nth-of-type(5)>div>div:nth-of-type(2)>section"
+        ) ?? null;
       if (!toolbar) {
         return;
       }
@@ -45,36 +55,36 @@ export default defineContentScript({
       button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#e8eaed"><path d="M440-160v-326L336-382l-56-58 200-200 200 200-56 58-104-104v326h-80ZM160-600v-120q0-33 23.5-56.5T240-800h480q33 0 56.5 23.5T800-720v120h-80v-120H240v120h-80Z"/></svg>`;
       // I don't like this inner html but it will work for now.
 
-      button.addEventListener('click', async () => {
+      button.addEventListener("click", async () => {
         const imageLink = image.href;
 
-        const embedLink =
-          (document.querySelector('[type="application/json+oembed"]') as HTMLAnchorElement | null)?.href;
+        const embedLink = (
+          document.querySelector('[type="application/json+oembed"]') as HTMLAnchorElement | null
+        )?.href;
         if (!embedLink) {
           return;
         }
 
-        const embedInfo
-          = await sendMessage('fetch', { url: embedLink }) as PixivOEmbed;
+        const embedInfo = (await sendMessage("fetch", { url: embedLink })) as PixivOEmbed;
 
         const author = embedInfo.author_name;
 
         const unfilteredTags = document.title
-          .split('/')[0]
+          .split("/")[0]
           .trim()
-          .split(', ')
-          .map(s => s.trim().toLowerCase().replaceAll(' ', '_'));
+          .split(", ")
+          .map((s) => s.trim().toLowerCase().replaceAll(" ", "_"));
 
         const filteredTags = [];
         for (const tag of unfilteredTags) {
-          const newTag1 = HololiveTalents.find(t => tag === t);
+          const newTag1 = HololiveTalents.find((t) => tag === t);
           if (newTag1) {
             filteredTags.push(newTag1);
             continue;
           }
 
-          const reversed = tag.split('_').reverse().join('_');
-          const newTag2 = HololiveTalents.find(t => reversed === t);
+          const reversed = tag.split("_").reverse().join("_");
+          const newTag2 = HololiveTalents.find((t) => reversed === t);
           if (newTag2) {
             filteredTags.push(newTag2);
           }
@@ -97,14 +107,14 @@ export default defineContentScript({
         }
         const postId = postIdExec[1];
 
-        await sendMessage('uploadForm', {
+        await sendMessage("uploadForm", {
           author: author,
           id: postId,
           serviceType: ServiceType.Pixiv,
           imageLink,
-          prefilledTags: filteredTags.join(' '),
+          prefilledTags: filteredTags.join(" "),
         });
-      })
+      });
 
       const thirdElement = toolbar.children.item(3);
       if (thirdElement) {
@@ -113,5 +123,5 @@ export default defineContentScript({
         toolbar.appendChild(button);
       }
     }
-  }
-})
+  },
+});

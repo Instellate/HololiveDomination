@@ -38,6 +38,7 @@ export function DataTable<TData, TValue>({
 
   useEffect(() => {
     onPageChange?.call(undefined, pagination.pageIndex);
+    setPageValue(String(pagination.pageIndex));
   }, [onPageChange, pagination.pageIndex]);
 
   const numberInputDebounce = useMemo(

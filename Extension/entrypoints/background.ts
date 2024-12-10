@@ -1,3 +1,4 @@
+import { getApiUrl } from "@/utils/http";
 import { onMessage, ServiceType } from "@/utils/messaging";
 
 export default defineBackground(() => {
@@ -42,7 +43,7 @@ export default defineBackground(() => {
     formdata.set("isLewd", data.data.isLewd ? "true" : "false");
     formdata.set("service", data.data.serviceType);
 
-    const response = await fetch(import.meta.env.VITE_DOMINATION_API_URL + "/api/posts", {
+    const response = await fetch((await getApiUrl()) + "/api/posts", {
       method: "POST",
       body: formdata,
       credentials: "include",

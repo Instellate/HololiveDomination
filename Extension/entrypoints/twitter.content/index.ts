@@ -65,7 +65,13 @@ async function getTags(id: string) {
 
 export default defineContentScript({
   matches: ["https://twitter.com/*", "https://x.com/*"],
-  main() {
+  async main() {
+    const storage = await browser.storage.sync.get();
+    const apiUrl = storage["api-url"];
+    if (!apiUrl) {
+      return;
+    }
+
     const mutationObserver = new window.MutationObserver(injectButtons);
     mutationObserver.observe(document.body, { childList: true, subtree: true });
 
