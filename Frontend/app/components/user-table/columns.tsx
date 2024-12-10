@@ -305,7 +305,7 @@ export const postsColumns: ColumnDef<Post>[] = [
                     </FormCheckbox>
                   </div>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel onClick={() => setEditPost({})}>Cancel</AlertDialogCancel>
                     <AlertDialogAction
                       onClick={async () => {
                         await new Http().editPost(post.id, editPost);
