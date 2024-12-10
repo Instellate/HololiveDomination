@@ -1,13 +1,23 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Default Popup Title</title>
-    <meta name="manifest.type" content="browser_action" />
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="./main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Default Popup Title</title>
+  <meta name="manifest.type" content="browser_action" />
+</head>
+
+<body>
+  <div id="app">
+    <form id="form">
+      <label for="apiUrl">API URL</label>
+      <input id="apiUrl" name="apiUrl" placeholder="API URL...">
+      <input id="submit" value="Submit" type="submit">
+    </form>
+    <span id="error"></span>
+  </div>
+  <script type="module" src="./main.ts"></script>
+</body>
+
 </html>

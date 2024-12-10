@@ -13,7 +13,7 @@ import FormCheckbox from '~/components/form-checkbox';
 function getNoLewds(searchParams: URLSearchParams): boolean {
   const isLewdStr = searchParams.get('noLewds');
   if (!isLewdStr) {
-    return false;
+    return true;
   }
 
   if (isLewdStr === 'false') {
@@ -51,6 +51,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   })();
   const [searchTags, setSearchTags] = useState<string[]>([]);
   const noLewds = Boolean(getNoLewds(searchParams));
+  const [searchInput, setSearchInput] = useState<string>("");
 
   const postsData = useMemo(() => {
     const postComponents: JSX.Element[] = [];
@@ -164,7 +165,11 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         <Input
           placeholder="Search for tags..."
           className="w-64"
-          onChange={(e) => debouncedSearch(e.target.value)}
+          onChange={(e) => {
+            setSearchInput(e.target.value);
+            debouncedSearch(e.target.value);
+          }}
+          value={searchInput}
         />
         <FormCheckbox
           id="noLewds"

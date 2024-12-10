@@ -12,4 +12,17 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  width: 200px;
+  height: 300px;
+}
+
+#submit {
+  width: fit-content;
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
