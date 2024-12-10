@@ -2,6 +2,7 @@ namespace Domination.Structures;
 
 public class EditPostRequest
 {
-    public string? Tags { get; set; }
-    public string? Author { get; set; }
+    public string? Tags { get; init; }
+    public string? Author { get; init; }
+    public bool? IsLewd { get; init; }
 }

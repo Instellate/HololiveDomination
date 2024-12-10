@@ -8,6 +8,20 @@ import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
 import debounce from 'lodash.debounce';
 import { functionalUpdate, type Updater } from '@tanstack/react-table';
+import FormCheckbox from '~/components/form-checkbox';
+
+function getNoLewds(searchParams: URLSearchParams): boolean {
+  const isLewdStr = searchParams.get('noLewds');
+  if (!isLewdStr) {
+    return false;
+  }
+
+  if (isLewdStr === 'false') {
+    return false;
+  } else {
+    return true;
+  }
+}
 
 export function meta() {
   return [{ title: 'Posts' }, { name: 'description', content: 'Hololive domination!' }];
@@ -18,8 +32,9 @@ export async function clientLoader({ request }: Route.ClientLoaderArgs) {
   const pageStr = searchParams.get('page');
   const pageOrNaN = Number(pageStr ?? '0');
   const page = Number.isNaN(pageOrNaN) ? 0 : pageOrNaN;
+  const noLewds = getNoLewds(searchParams);
 
-  return await new Http().getPosts(searchParams.get('tags') ?? undefined, page);
+  return await new Http().getPosts(searchParams.get('tags') ?? undefined, page, !noLewds);
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
@@ -35,6 +50,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     }
   })();
   const [searchTags, setSearchTags] = useState<string[]>([]);
+  const noLewds = Boolean(getNoLewds(searchParams));
 
   const postsData = useMemo(() => {
     const postComponents: JSX.Element[] = [];
@@ -150,20 +166,31 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           className="w-64"
           onChange={(e) => debouncedSearch(e.target.value)}
         />
+        <FormCheckbox
+          id="noLewds"
+          checked={noLewds}
+          onCheckedChange={(c) =>
+            setSearchParams((s) => {
+              s.set('noLewds', String(c));
+              return s;
+            })
+          }
+        >
+          No lewds
+        </FormCheckbox>
         <div className="flex-warp flex gap-2">{selectedTagsComponents}</div>
         <Paginator
           currentPage={page + 1}
           totalPages={loaderData.pageCount}
-          onPageChange={(pageNumber) => {
+          onPageChange={(pageNumber) =>
             setSearchParams((s) => {
               s.set('page', String(pageNumber - 1));
               return s;
-            });
-          }}
+            })
+          }
           showPreviousNext
         />
         <div className="grid gap-6 p-4 md:grid-cols-2 xl:grid-cols-3">{postsData}</div>
-        <div className="flex-warp flex gap-2">{selectedTagsComponents}</div>
         <Paginator
           currentPage={page + 1}
           totalPages={loaderData.pageCount}

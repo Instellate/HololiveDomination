@@ -22,6 +22,7 @@ export type Post = {
   id: string;
   author: string;
   tags: string[];
+  isLewd: boolean;
   url: string;
   createdAt: number;
 };
@@ -34,6 +35,7 @@ export type GetPosts = {
 export type EditPost = {
   tags: string;
   author: string;
+  isLewd: boolean;
 };
 
 type HttpMethods = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
@@ -102,10 +104,11 @@ export default class Http {
     return await this.baseRequest<User>(`/api/users/${userId}`, 'GET');
   }
 
-  public async getPosts(tags: string | undefined, page: number = 0) {
+  public async getPosts(tags: string | undefined, page: number = 0, keepLewd: boolean = true) {
     const searchParams = new URLSearchParams();
     searchParams.set('page', String(page));
     searchParams.set('tags', tags ?? '');
+    searchParams.set('keepLewd', String(keepLewd));
 
     return await this.baseRequest<GetPosts>(`/api/posts?${searchParams.toString()}`, 'GET');
   }

@@ -13,10 +13,8 @@ import {
 import { Button, buttonVariants } from '../ui/button';
 import { MoreHorizontal } from 'lucide-react';
 import { Input } from '../ui/input';
-import { Checkbox } from '../ui/checkbox';
 import { useState } from 'react';
 import Http, { type EditPost, type EditUser, type Post, type User } from '~/lib/http';
-import type { CheckedState } from '@radix-ui/react-checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,27 +22,7 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { DateFormatter } from '@internationalized/date';
-
-type FormCheckboxProps = {
-  checked?: CheckedState;
-  onCheckedChange?: (checked: CheckedState) => void;
-  children: JSX.Element[] | JSX.Element | string;
-  id: string;
-};
-
-function FormCheckbox({ checked, onCheckedChange, children, id }: FormCheckboxProps) {
-  return (
-    <div className="flex items-center gap-2">
-      <Checkbox id={id} checked={checked} onCheckedChange={onCheckedChange} />
-      <label
-        htmlFor={id}
-        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-      >
-        {children}
-      </label>
-    </div>
-  );
-}
+import FormCheckbox from '../form-checkbox';
 
 export const userColumns: ColumnDef<User>[] = [
   {
@@ -230,6 +208,15 @@ export const postsColumns: ColumnDef<Post>[] = [
     },
   },
   {
+    accessorKey: 'isLewd',
+    header: 'Is lewd',
+    cell: ({ row }) => {
+      const isLewd = row.getValue('isLewd');
+
+      return <div className="font-medium">{isLewd ? 'Yes' : 'No'}</div>;
+    },
+  },
+  {
     accessorKey: 'actions',
     header: '',
     cell: ({ row }) => {
@@ -283,6 +270,20 @@ export const postsColumns: ColumnDef<Post>[] = [
                         })
                       }
                     />
+                    <FormCheckbox
+                      id="isLewd"
+                      checked={editPost.isLewd}
+                      onCheckedChange={(c) =>
+                        setEditPost((o) => {
+                          return {
+                            ...o,
+                            isLewd: c as boolean,
+                          };
+                        })
+                      }
+                    >
+                      Is Lewd
+                    </FormCheckbox>
                   </div>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>

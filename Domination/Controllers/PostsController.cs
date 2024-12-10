@@ -5,13 +5,11 @@ using Domination.Structures;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Minio;
 using Minio.DataModel;
 using Minio.DataModel.Args;
-using NuGet.Protocol;
 
 namespace Domination.Controllers;
 
@@ -98,6 +96,7 @@ public class PostsController : ControllerBase
                 Id = post.Id,
                 Author = post.Author,
                 Tags = new List<string>(post.Tags.Count),
+                IsLewd = post.IsLewd,
                 CreatedAt = post.CreatedAt.ToUnixTimeMilliseconds(),
                 Url = post.Service switch
                 {
@@ -218,6 +217,7 @@ public class PostsController : ControllerBase
             Id = post.Id,
             Author = post.Author,
             Tags = new List<string>(post.Tags.Count),
+            IsLewd = post.IsLewd,
             CreatedAt = post.CreatedAt.ToUnixTimeMilliseconds(),
             Url = post.Service switch
             {
@@ -349,6 +349,11 @@ public class PostsController : ControllerBase
         if (body.Author is not null)
         {
             post.Author = body.Author;
+        }
+
+        if (body.IsLewd is { } isLewd)
+        {
+            post.IsLewd = isLewd;
         }
 
         await this._db.SaveChangesAsync(ct);
