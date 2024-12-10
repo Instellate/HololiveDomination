@@ -56,13 +56,16 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     return postComponents;
   }, [posts]);
 
-  const setSelectedTags = useCallback((updater: Updater<string[]>) => {
-    const value = functionalUpdate(updater, selectedTags);
-    setSearchParams((o) => {
-      o.set('tags', value.join(' '))
-      return o;
-    })
-  }, [selectedTags, setSearchParams]);
+  const setSelectedTags = useCallback(
+    (updater: Updater<string[]>) => {
+      const value = functionalUpdate(updater, selectedTags);
+      setSearchParams((o) => {
+        o.set('tags', value.join(' '));
+        return o;
+      });
+    },
+    [selectedTags, setSearchParams],
+  );
 
   const selectedTagsComponents = useMemo(() => {
     const components = [];
@@ -160,6 +163,18 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           showPreviousNext
         />
         <div className="grid gap-6 p-4 md:grid-cols-2 xl:grid-cols-3">{postsData}</div>
+        <div className="flex-warp flex gap-2">{selectedTagsComponents}</div>
+        <Paginator
+          currentPage={page + 1}
+          totalPages={loaderData.pageCount}
+          onPageChange={(pageNumber) => {
+            setSearchParams((s) => {
+              s.set('page', String(pageNumber - 1));
+              return s;
+            });
+          }}
+          showPreviousNext
+        />
       </div>
     </>
   );

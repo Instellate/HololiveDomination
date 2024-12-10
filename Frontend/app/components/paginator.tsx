@@ -22,15 +22,13 @@ export default function Paginator({
 }: PaginatorProps) {
   return (
     <Pagination>
-      <PaginationContent>
+      <PaginationContent className="flex-wrap">
         {showPreviousNext && totalPages ? (
           <PaginationItem>
             <PaginationPrevious
               onClick={() => onPageChange(currentPage - 1)}
               isActive={!(currentPage - 1 < 1)}
-              className={
-                (currentPage - 1 < 1) ? 'pointer-events-none opacity-50' : undefined
-              }
+              className={currentPage - 1 < 1 ? 'pointer-events-none opacity-50' : undefined}
             />
           </PaginationItem>
         ) : null}
