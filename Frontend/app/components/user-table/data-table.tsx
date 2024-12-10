@@ -8,7 +8,8 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import debounce from 'lodash.debounce';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -29,6 +30,7 @@ export function DataTable<TData, TValue>({
   pageSize = 20,
   page,
 }: DataTableProps<TData, TValue>) {
+  const [pageValue, setPageValue] = useState('');
   const [pagination, setPagination] = useState({
     pageIndex: page ?? 0,
     pageSize,
@@ -36,7 +38,15 @@ export function DataTable<TData, TValue>({
 
   useEffect(() => {
     onPageChange?.call(undefined, pagination.pageIndex);
-  }, [onPageChange, pagination.pageIndex])
+  }, [onPageChange, pagination.pageIndex]);
+
+  const numberInputDebounce = useMemo(
+    () =>
+      debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+        setPagination((o) => ({ ...o, pageIndex: Number(e.target.value) }));
+      }, 200),
+    [setPagination],
+  );
 
   const table = useReactTable({
     data,
@@ -110,6 +120,38 @@ export function DataTable<TData, TValue>({
         >
           Previous
         </Button>
+        <Input
+          className="h-9 w-16 border-input"
+          defaultValue={pagination.pageIndex}
+          value={pageValue}
+          onKeyDown={(e) => {
+            if (e.key === 'Backspace') {
+              return;
+            }
+            if (!e.cancelable) {
+              return;
+            }
+
+            const numberStr = pageValue + e.key;
+            if (!Number.isNaN(Number(numberStr))) {
+              const page = Number(numberStr);
+              if (page < 0) {
+                e.preventDefault();
+              } else if (page > pageCount) {
+                e.preventDefault();
+              }
+            } else {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          }}
+          onChange={(e) => {
+            setPageValue(e.target.value);
+            numberInputDebounce(e);
+          }}
+          min={1}
+          max={pageCount}
+        />
         <Button
           variant="outline"
           size="sm"
