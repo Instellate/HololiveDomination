@@ -41,7 +41,7 @@ async function getTags(id: string) {
 
   const tags: string[] = [];
   if (description) {
-    const unfilteredTags = description?.split(/ |\n/).filter((t) => t.startsWith("#"));
+    const unfilteredTags = description?.split(/\s/gm).filter((t) => t.startsWith("#"));
 
     for (const tag of unfilteredTags) {
       const hololiveTags: Record<string, string> = HololiveTags;
