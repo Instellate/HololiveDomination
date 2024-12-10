@@ -22,7 +22,7 @@ export default function Paginator({
 }: PaginatorProps) {
   return (
     <Pagination>
-      <PaginationContent className="flex-wrap">
+      <PaginationContent className="flex-wrap justify-center">
         {showPreviousNext && totalPages ? (
           <PaginationItem>
             <PaginationPrevious
