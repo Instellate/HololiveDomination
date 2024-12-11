@@ -5,6 +5,7 @@ using Domination.Requirements;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Minio;
@@ -24,6 +25,12 @@ public static class Program
                     = JsonIgnoreCondition.WhenWritingNull;
                 o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
+
+        builder.Services.Configure<ForwardedHeadersOptions>(o =>
+        {
+            o.ForwardedHeaders
+                = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        });
 
         builder.Services.AddCors(o => o.AddPolicy(name: "development",
             policy => policy
@@ -71,8 +78,8 @@ public static class Program
         {
             authenticationBuilder.AddTwitter(o =>
             {
-                o.ConsumerKey = twitterSection.GetValue<string>("Id");
-                o.ConsumerSecret = twitterSection.GetValue<string>("Secret");
+                o.ConsumerKey = twitterSection.GetValue<string>("Id")!;
+                o.ConsumerSecret = twitterSection.GetValue<string>("Secret")!;
                 o.CallbackPath = "/api/signin-twitter";
             });
         }
@@ -106,6 +113,10 @@ public static class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseCors("development");
+        }
+        else
+        {
+            app.UseForwardedHeaders();
         }
 
         app.UseAuthentication();
