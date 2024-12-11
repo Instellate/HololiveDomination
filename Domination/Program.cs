@@ -2,7 +2,7 @@ using System.Data.Common;
 using System.Text.Json.Serialization;
 using Domination.Entities;
 using Domination.Requirements;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
@@ -54,18 +54,29 @@ public static class Program
         builder.Services.AddDataProtection()
             .PersistKeysToDbContext<HololiveDbContext>();
 
-        builder.Services
+        AuthenticationBuilder authenticationBuilder = builder.Services
             .AddAuthentication()
             .AddDiscord(o =>
             {
                 IConfigurationSection discordSection
                     = builder.Configuration.GetSection("Discord");
-                o.ClientId =
-                    discordSection.GetValue<string>("Id")!;
+                o.ClientId = discordSection.GetValue<string>("Id")!;
                 o.ClientSecret = discordSection.GetValue<string>("Secret")!;
                 o.Scope.Add("email");
                 o.CallbackPath = "/api/signin-discord";
             });
+
+
+        if (!string.IsNullOrWhiteSpace(builder.Configuration["Twitter"]))
+        {
+            IConfigurationSection twitterSection = builder.Configuration.GetSection("Twitter");
+            authenticationBuilder.AddTwitter(o =>
+            {
+                o.ConsumerKey = twitterSection.GetValue<string>("Id");
+                o.ConsumerSecret = twitterSection.GetValue<string>("Secret");
+                o.CallbackPath = "/api/signin-twitter";
+            });
+        }
 
         builder.Services.AddAuthorization(o =>
         {

@@ -9,7 +9,7 @@ public class HololivePrincipleClaimsFactory : IUserClaimsPrincipalFactory<User>
 {
     private readonly UserManager<User> _userManager;
     private readonly IOptions<IdentityOptions> _optionsAccessor;
-    
+
     public HololivePrincipleClaimsFactory(UserManager<User> userManager,
         IOptions<IdentityOptions> optionsAccessor)
     {
@@ -20,7 +20,6 @@ public class HololivePrincipleClaimsFactory : IUserClaimsPrincipalFactory<User>
     public async Task<ClaimsPrincipal> CreateAsync(User user)
     {
         IList<string> roles = await this._userManager.GetRolesAsync(user);
-
 
         List<Claim> claims = new(roles.Count + 2);
         foreach (string role in roles)
