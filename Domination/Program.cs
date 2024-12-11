@@ -66,10 +66,9 @@ public static class Program
                 o.CallbackPath = "/api/signin-discord";
             });
 
-
-        if (!string.IsNullOrWhiteSpace(builder.Configuration["Twitter"]))
+        IConfigurationSection twitterSection = builder.Configuration.GetSection("Twitter");
+        if (twitterSection.Exists())
         {
-            IConfigurationSection twitterSection = builder.Configuration.GetSection("Twitter");
             authenticationBuilder.AddTwitter(o =>
             {
                 o.ConsumerKey = twitterSection.GetValue<string>("Id");
