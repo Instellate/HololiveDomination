@@ -53,7 +53,7 @@ public class AuthenticationController : ControllerBase
     {
         if (string.IsNullOrWhiteSpace(provider))
         {
-            return BadRequest();
+            return BadRequest("Provider cannot only contain whitespace");
         }
 
         IAuthenticationSchemeProvider schemeProvider = HttpContext.RequestServices
@@ -72,7 +72,7 @@ public class AuthenticationController : ControllerBase
 
         if (!providerExists)
         {
-            return BadRequest();
+            return BadRequest("Provider doesn't exist");
         }
 
         AuthenticationProperties properties
@@ -87,7 +87,7 @@ public class AuthenticationController : ControllerBase
         ExternalLoginInfo? info = await this._signInManager.GetExternalLoginInfoAsync();
         if (info is null)
         {
-            return BadRequest();
+            return BadRequest("No login info found");
         }
 
         SignInResult result
@@ -123,12 +123,12 @@ public class AuthenticationController : ControllerBase
 
             if (username is null)
             {
-                return BadRequest();
+                return BadRequest("No username provided");
             }
 
             if (email is null)
             {
-                return BadRequest();
+                return BadRequest("No email provided");
             }
 
             User user = new()
