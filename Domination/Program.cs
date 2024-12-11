@@ -81,6 +81,7 @@ public static class Program
                 o.ConsumerKey = twitterSection.GetValue<string>("Id")!;
                 o.ConsumerSecret = twitterSection.GetValue<string>("Secret")!;
                 o.CallbackPath = "/api/signin-twitter";
+                o.RetrieveUserDetails = true;
             });
         }
 
