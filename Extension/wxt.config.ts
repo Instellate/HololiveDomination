@@ -19,9 +19,8 @@ export default defineConfig({
     }
 
     return {
-      permissions: ['storage'],
+      permissions: ['storage', 'declarativeNetRequest', 'declarativeNetRequestWithHostAccess'],
       host_permissions: [
-        'https://localhost/*',
         'https://*.pximg.net/*',
         'https://*.pixiv.net/*',
         'https://raw.githubusercontent.com/*',

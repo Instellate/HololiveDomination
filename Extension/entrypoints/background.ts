@@ -1,5 +1,5 @@
 import { getApiUrl } from '@/utils/http';
-import { onMessage, ServiceType } from '@/utils/messaging';
+import { onMessage } from '@/utils/messaging';
 
 export default defineBackground(() => {
   onMessage('uploadForm', async (data) => {
@@ -21,13 +21,10 @@ export default defineBackground(() => {
   });
 
   onMessage('upload', async (data) => {
-    let referrer = undefined;
-    if (data.data.serviceType === ServiceType.Pixiv) {
-      console.log('Hello!');
-      referrer = 'https://www.pixiv.net/';
-    }
     const imageResp = await fetch(data.data.imageLink, {
-      referrer,
+      headers: {
+        'Add-Origin': 'https://pixiv.net/',
+      },
     });
     if (!imageResp.ok) {
       return await imageResp.text();
@@ -58,4 +55,27 @@ export default defineBackground(() => {
     const { url, init } = data.data;
     return await fetch(url, init).then((r) => r.json());
   });
+
+  browser.declarativeNetRequest
+    .updateSessionRules({
+      removeRuleIds: [1],
+      addRules: [
+        {
+          id: 1,
+          priority: 1,
+          condition: { requestDomains: ['i.pximg.net'] },
+          action: {
+            type: 'modifyHeaders' as chrome.declarativeNetRequest.RuleActionType,
+            requestHeaders: [
+              {
+                header: 'Referer',
+                operation: 'set' as chrome.declarativeNetRequest.HeaderOperation,
+                value: 'https://www.pixiv.net/',
+              },
+            ],
+          },
+        },
+      ],
+    })
+    .then(() => console.log('Added rules'));
 });
