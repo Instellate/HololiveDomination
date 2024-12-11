@@ -12,12 +12,19 @@
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",
-    "postinstall": "wxt prepare"
+    "postinstall": "wxt prepare",
+    "lint": "eslint .",
+    "format": "prettier . --write"
   },
   "devDependencies": {
+    "@eslint/js": "^9.16.0",
     "@types/chrome": "^0.0.280",
     "@webext-core/messaging": "^2.1.0",
+    "eslint": "^9.16.0",
+    "globals": "^15.13.0",
+    "prettier": "3.4.2",
     "typescript": "^5.6.3",
+    "typescript-eslint": "^8.18.0",
     "wxt": "^0.19.19"
   },
   "dependencies": {

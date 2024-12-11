@@ -1,33 +1,33 @@
-import "./style.css";
+import './style.css';
 
-const apiUrlElement = document.getElementById("apiUrl")! as HTMLInputElement;
-const errorSpan = document.getElementById("error")!;
+const apiUrlElement = document.getElementById('apiUrl')! as HTMLInputElement;
+const errorSpan = document.getElementById('error')!;
 
 let apiUrl: string | undefined;
 browser.storage.sync.get().then((v) => {
-  apiUrlElement.value = v["api-url"] ?? "";
-  apiUrl = v["api-url"];
+  apiUrlElement.value = v['api-url'] ?? '';
+  apiUrl = v['api-url'];
 });
 
-const formElement = document.getElementById("form")! as HTMLFormElement;
-formElement.addEventListener("submit", async (e) => {
+const formElement = document.getElementById('form')! as HTMLFormElement;
+formElement.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  let value = apiUrlElement.value.trim();
+  const value = apiUrlElement.value.trim();
   if (!value) {
     return;
   }
 
   let formattedUrl;
-  if (value.endsWith("/")) {
-    formattedUrl = value + "*";
+  if (value.endsWith('/')) {
+    formattedUrl = value + '*';
   } else {
-    formattedUrl = value + "/*";
+    formattedUrl = value + '/*';
   }
 
   if (apiUrl) {
     const _removed = await browser.permissions.remove({
-      origins: [apiUrl.startsWith("/") ? apiUrl + "*" : apiUrl + "/*"],
+      origins: [apiUrl.startsWith('/') ? apiUrl + '*' : apiUrl + '/*'],
     });
   }
 
@@ -38,15 +38,15 @@ formElement.addEventListener("submit", async (e) => {
     });
   } catch (error: unknown) {
     console.log(error);
-    errorSpan.innerText = "Invalid URL";
+    errorSpan.innerText = 'Invalid URL';
     return;
   }
 
   if (isAdded) {
-    errorSpan.innerText = "Added";
+    errorSpan.innerText = 'Added';
   } else {
     errorSpan.innerText = "Couldn't add url";
   }
 
-  await browser.storage.sync.set({ "api-url": value });
+  await browser.storage.sync.set({ 'api-url': value });
 });

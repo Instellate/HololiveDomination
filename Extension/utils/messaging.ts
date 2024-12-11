@@ -1,4 +1,4 @@
-import { defineExtensionMessaging } from "@webext-core/messaging";
+import { defineExtensionMessaging } from '@webext-core/messaging';
 
 interface ProtocolMap {
   uploadForm(data: {
@@ -22,8 +22,8 @@ interface ProtocolMap {
 }
 
 export enum ServiceType {
-  Twitter = "Twitter",
-  Pixiv = "Pixiv",
+  Twitter = 'Twitter',
+  Pixiv = 'Pixiv',
 }
 
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>();

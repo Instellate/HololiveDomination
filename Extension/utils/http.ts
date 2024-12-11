@@ -36,7 +36,7 @@ export type EditPost = {
   author: string;
 };
 
-type HttpMethods = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+type HttpMethods = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export class HttpError {
   error: number;
@@ -54,7 +54,7 @@ export async function getApiUrl(): Promise<string | undefined> {
     return apiUrl;
   } else {
     const storage = await browser.storage.sync.get();
-    apiUrl = storage["api-url"];
+    apiUrl = storage['api-url'];
     return apiUrl;
   }
 }
@@ -67,13 +67,13 @@ export default class Http {
   private async baseRequest<T>(
     url: string,
     method: HttpMethods,
-    body?: unknown
+    body?: unknown,
   ): Promise<T | void> {
     const response = await fetch((await getApiUrl()) + url, {
       body: body !== undefined ? JSON.stringify(body) : undefined,
       method: method,
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
@@ -89,46 +89,46 @@ export default class Http {
   }
 
   public async editUser(userId: string, body: Partial<EditUser>): Promise<User> {
-    return await this.baseRequest<User>(`/api/users/${userId}`, "PATCH", body);
+    return await this.baseRequest<User>(`/api/users/${userId}`, 'PATCH', body);
   }
 
   public async signOut() {
-    return await this.baseRequest("/api/authentication/signout", "DELETE");
+    return await this.baseRequest('/api/authentication/signout', 'DELETE');
   }
 
   public async getCurrentUser() {
-    return await this.baseRequest<User>("/api/users/current", "GET");
+    return await this.baseRequest<User>('/api/users/current', 'GET');
   }
 
   public async getUsers(search: string | undefined, page: number = 0) {
     const searchParams = new URLSearchParams();
-    searchParams.set("page", page.toString());
-    searchParams.set("search", search ?? "");
+    searchParams.set('page', page.toString());
+    searchParams.set('search', search ?? '');
 
-    return await this.baseRequest<GetUsers>(`/api/users?${searchParams.toString()}`, "GET");
+    return await this.baseRequest<GetUsers>(`/api/users?${searchParams.toString()}`, 'GET');
   }
 
   public async getUser(userId: string) {
-    return await this.baseRequest<User>(`/api/users/${userId}`, "GET");
+    return await this.baseRequest<User>(`/api/users/${userId}`, 'GET');
   }
 
   public async getPosts(tags: string | undefined, page: number = 0) {
     const searchParams = new URLSearchParams();
-    searchParams.set("page", String(page));
-    searchParams.set("tags", tags ?? "");
+    searchParams.set('page', String(page));
+    searchParams.set('tags', tags ?? '');
 
-    return await this.baseRequest<GetPosts>(`/api/posts?${searchParams.toString()}`, "GET");
+    return await this.baseRequest<GetPosts>(`/api/posts?${searchParams.toString()}`, 'GET');
   }
 
   public async getPost(postId: number) {
-    return await this.baseRequest<Post>(`/api/posts/${postId}`, "GET");
+    return await this.baseRequest<Post>(`/api/posts/${postId}`, 'GET');
   }
 
   public async editPost(postId: string, body: Partial<EditPost>) {
-    return await this.baseRequest(`/api/posts/${postId}`, "PATCH", body);
+    return await this.baseRequest(`/api/posts/${postId}`, 'PATCH', body);
   }
 
   public async getProviders() {
-    return await this.baseRequest<string[]>("/api/authentication/providers", "GET");
+    return await this.baseRequest<string[]>('/api/authentication/providers', 'GET');
   }
 }
