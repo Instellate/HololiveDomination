@@ -3,19 +3,49 @@ import HololiveTalents from '@/hololive-talents.json';
 import HololiveGens from '@/hololive-gens.json';
 import './style.css';
 
-type PixivOEmbed = {
-  version: string;
-  type: string;
-  height: number;
-  width: number;
-  work_type: string;
-  html: string;
-  title: string;
-  thumbnail_url: string;
-  author_name: string;
-  author_url: string;
-  provider_name: string;
-  provider_url: string;
+type PixivIllustAjax = {
+  error: boolean;
+  message: string;
+  body: {
+    illustId: string;
+    illustTitle: string;
+    illustComment: string;
+    id: string;
+    title: string;
+    description: string;
+    illustType: number;
+    createDate: string;
+    uploadDate: string;
+    restrict: number;
+    xRestrict: number;
+    sl: number;
+    urls: {
+      mini: string;
+      thumb: string;
+      small: string;
+      regular: string;
+      original: string;
+    }[];
+    tags: {
+      authorId: string;
+      isLocked: boolean;
+      tags: {
+        tag: string;
+        locked: boolean;
+        deletable: boolean;
+        userId: string;
+        romaji: string;
+        translation?: {
+          en?: string;
+        };
+        username: string;
+      }[];
+    };
+    alt: string;
+    userId: string;
+    userName: string;
+    userAccount: string;
+  };
 };
 
 export default defineContentScript({
@@ -56,6 +86,12 @@ export default defineContentScript({
       // I don't like this inner html but it will work for now.
 
       button.addEventListener('click', async () => {
+        const postIdExec = /\/en\/artworks\/([0-9]+)(?:.*)/i.exec(window.location.pathname);
+        if (!postIdExec) {
+          return;
+        }
+        const postId = postIdExec[1];
+
         const imageLink = image.href;
 
         const embedLink = (
@@ -65,15 +101,18 @@ export default defineContentScript({
           return;
         }
 
-        const embedInfo = (await sendMessage('fetch', { url: embedLink })) as PixivOEmbed;
+        const illustInfo = (await sendMessage('fetch', {
+          url: `https://www.pixiv.net/ajax/illust/${postId}`,
+        })) as PixivIllustAjax;
+        if (illustInfo.error) {
+          return;
+        }
 
-        const author = embedInfo.author_name;
+        const author = illustInfo.body.userName;
 
-        const unfilteredTags = document.title
-          .split('/')[0]
-          .trim()
-          .split(', ')
-          .map((s) => s.trim().toLowerCase().replaceAll(' ', '_'));
+        const unfilteredTags = illustInfo.body.tags.tags
+          .map((t) => t.translation?.en ?? t.tag)
+          .map((t) => t.trim().toLowerCase().replaceAll(' ', '_'));
 
         const filteredTags = [];
         for (const tag of unfilteredTags) {
@@ -100,12 +139,6 @@ export default defineContentScript({
             filteredTags.push(gen);
           }
         }
-
-        const postIdExec = /\/en\/artworks\/([0-9]+)(?:.*)/i.exec(window.location.pathname);
-        if (!postIdExec) {
-          return;
-        }
-        const postId = postIdExec[1];
 
         await sendMessage('uploadForm', {
           author: author,
