@@ -100,6 +100,27 @@ public class AuthenticationController : ControllerBase
             string? username = info.Principal.FindFirstValue(ClaimTypes.Name);
             string? email = info.Principal.FindFirstValue(ClaimTypes.Email);
 
+            if (email is not null)
+            {
+                User? maybeUser = await this._userManager.FindByEmailAsync(email);
+                if (maybeUser is not null)
+                {
+                    await this._userManager.AddLoginAsync(maybeUser, info);
+                    SignInResult newStatus = await this._signInManager.ExternalLoginSignInAsync(
+                        info.LoginProvider,
+                        info.ProviderKey,
+                        true);
+                    if (!newStatus.Succeeded)
+                    {
+                        return StatusCode(500);
+                    }
+                    else
+                    {
+                        return Redirect("/");
+                    }
+                }
+            }
+
             if (username is null)
             {
                 return BadRequest();
