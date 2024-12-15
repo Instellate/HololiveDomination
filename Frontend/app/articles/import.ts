@@ -27,11 +27,13 @@ export async function getAllArticlesRoute(): Promise<RouteConfigEntry[]> {
 type ArticleInformation = {
   name: string;
   path: string;
+  order: number;
 };
 
 type ArticleModule = {
   frontmatter: {
     title: string;
+    order: number;
   };
 };
 
@@ -40,7 +42,7 @@ export async function getArticleInformation(): Promise<ArticleInformation[]> {
 
   const articleInformation: ArticleInformation[] = [];
   for (const [articlePath, func] of Object.entries(articles)) {
-    const module = await func() as ArticleModule;
+    const module = (await func()) as ArticleModule;
 
     const routePath = articlePath.replace('./', '');
     const filename = bPath.parse(articlePath).name;
@@ -51,8 +53,12 @@ export async function getArticleInformation(): Promise<ArticleInformation[]> {
       dir = bPath.join('articles', routePath);
     }
 
-    articleInformation.push({ name: module.frontmatter.title, path: dir });
+    articleInformation.push({
+      name: module.frontmatter.title,
+      path: dir,
+      order: module.frontmatter.order,
+    });
   }
 
-  return articleInformation;
+  return articleInformation.sort((a, b) => a.order - b.order);
 }
