@@ -14,6 +14,9 @@ import { Sheet, SheetContent, SheetTrigger } from '~/components/ui/sheet';
 import { useAccount } from '~/lib/account';
 import Http from '~/lib/http';
 import { cn } from '~/lib/utils';
+import { getArticleInformation } from '~/articles/import';
+import type { Route } from './+types/default';
+import React from 'react';
 
 async function signOut() {
   try {
@@ -25,37 +28,49 @@ async function signOut() {
   }
 }
 
-export default function Default() {
+export async function clientLoader() {
+  return await getArticleInformation();
+}
+
+export default function Default({ loaderData }: Route.ComponentProps) {
   const account = useAccount();
+
+  const articles = useMemo(
+    () =>
+      loaderData.map((article) => (
+        <DropdownMenuItem key={article.path}>
+          <Link to={article.path}>{article.name}</Link>
+        </DropdownMenuItem>
+      )),
+    [loaderData],
+  );
 
   const accountComponents = useMemo(() => {
     if (account) {
       return (
-        <>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <div>
-                <Button variant="outline" className="hidden md:block">
-                  {account.username}
-                </Button>
-                <Button variant="ghost" className="block md:hidden font-bold">
-                  {account.username}
-                </Button>
-              </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="hover:cursor-pointer" onClick={signOut}>
-                Sign out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </>
+        <DropdownMenu key="account">
+          <DropdownMenuTrigger asChild>
+            <div>
+              <Button variant="outline" className="hidden md:block">
+                {account.username}
+              </Button>
+              <Button variant="ghost" className="block font-bold md:hidden">
+                {account.username}
+              </Button>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="hover:cursor-pointer" onClick={signOut}>
+              Sign out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       );
     } else {
       return (
-        <Link to="/login">
+        <Link to="/login" key="account">
           <Button variant="link" className="p-0">
             Login
           </Button>
@@ -63,6 +78,37 @@ export default function Default() {
       );
     }
   }, [account]);
+
+  const navBarContent = useMemo(
+    () => [
+      accountComponents,
+      <React.Fragment key="posts">
+        {(account?.roles.includes('Admin') ||
+          account?.roles.includes('Staff') ||
+          account?.roles.includes('Uploader')) && (
+          <Link to="/posts">
+            <Button variant="link">Posts</Button>
+          </Link>
+        )}
+      </React.Fragment>,
+      <React.Fragment key="users">
+        {(account?.roles.includes('Admin') || account?.roles.includes('Staff')) && (
+          <Link to="/users">
+            <Button variant="link">Users</Button>
+          </Link>
+        )}
+      </React.Fragment>,
+      <DropdownMenu key="articles">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="link">Articles</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>{articles}</DropdownMenuContent>
+        </DropdownMenu>
+      </DropdownMenu>,
+    ],
+    [account?.roles, accountComponents, articles],
+  );
 
   return (
     <>
@@ -81,38 +127,12 @@ export default function Default() {
                 </Button>
               </SheetTrigger>
               <SheetContent className="w-fit">
-                <div className="mt-4 flex w-fit flex-col">
-                  {accountComponents}
-                  {(account?.roles.includes('Admin') ||
-                    account?.roles.includes('Staff') ||
-                    account?.roles.includes('Uploader')) && (
-                    <Link to="/posts">
-                      <Button variant="link">Posts</Button>
-                    </Link>
-                  )}
-                  {(account?.roles.includes('Admin') || account?.roles.includes('Staff')) && (
-                    <Link to="/users">
-                      <Button variant="link">Users</Button>
-                    </Link>
-                  )}
-                </div>
+                <div className="mt-4 flex w-fit flex-col">{navBarContent}</div>
               </SheetContent>
             </Sheet>
           </div>
           <div className="items-ce ml-auto hidden gap-2 md:flex">
-            {(account?.roles.includes('Admin') ||
-              account?.roles.includes('Staff') ||
-              account?.roles.includes('Uploader')) && (
-              <Link to="/posts">
-                <Button variant="link">Posts</Button>
-              </Link>
-            )}
-            {(account?.roles.includes('Admin') || account?.roles.includes('Staff')) && (
-              <Link to="/users">
-                <Button variant="link">Users</Button>
-              </Link>
-            )}
-            {accountComponents}
+            {navBarContent.slice().reverse()}
           </div>
         </div>
         <div>

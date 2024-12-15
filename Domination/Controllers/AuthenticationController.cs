@@ -105,7 +105,12 @@ public class AuthenticationController : ControllerBase
                 User? maybeUser = await this._userManager.FindByEmailAsync(email);
                 if (maybeUser is not null)
                 {
-                    await this._userManager.AddLoginAsync(maybeUser, info);
+                    IdentityResult addLoginStatus = await this._userManager.AddLoginAsync(maybeUser, info);
+                    if (!addLoginStatus.Succeeded)
+                    {
+                        return BadRequest(addLoginStatus.Errors);
+                    }
+                    
                     SignInResult newStatus = await this._signInManager.ExternalLoginSignInAsync(
                         info.LoginProvider,
                         info.ProviderKey,
