@@ -38,7 +38,7 @@ export default function Default({ loaderData }: Route.ComponentProps) {
   const articles = useMemo(
     () =>
       loaderData.map((article) => (
-        <DropdownMenuItem key={article.path}>
+        <DropdownMenuItem key={article.path} asChild>
           <Link to={article.path}>{article.name}</Link>
         </DropdownMenuItem>
       )),
