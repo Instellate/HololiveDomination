@@ -122,6 +122,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               }
               return [...o];
             });
+            setSearchInput('');
           }}
         >
           {tag}
