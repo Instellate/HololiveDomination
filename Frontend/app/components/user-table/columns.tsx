@@ -180,7 +180,7 @@ export const postsColumns: ColumnDef<Post>[] = [
           <Tooltip>
             <TooltipTrigger asChild>
               <a href={post.url}>
-                <Button variant="link" className="p-0">
+                <Button variant="link" className="p-0 select-text">
                   {post.id}
                 </Button>
               </a>

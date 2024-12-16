@@ -51,7 +51,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   })();
   const [searchTags, setSearchTags] = useState<string[]>([]);
   const noLewds = Boolean(getNoLewds(searchParams));
-  const [searchInput, setSearchInput] = useState<string>("");
+  const [searchInput, setSearchInput] = useState<string>('');
 
   const postsData = useMemo(() => {
     const postComponents: JSX.Element[] = [];
@@ -183,7 +183,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         >
           No lewds
         </FormCheckbox>
-        <div className="flex-warp flex gap-2">{selectedTagsComponents}</div>
+        <div className="flex flex-wrap justify-center gap-2">{selectedTagsComponents}</div>
         <Paginator
           currentPage={page + 1}
           totalPages={loaderData.pageCount}
