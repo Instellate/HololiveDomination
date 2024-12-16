@@ -1,9 +1,9 @@
 import { postsColumns } from '~/components/user-table/columns';
 import { DataTable } from '~/components/user-table/data-table';
 import Http from '~/lib/http';
-import type { Route } from './+types/posts';
 import { useMemo, useState } from 'react';
 import debounce from 'lodash.debounce';
+import type { Route } from './+types';
 
 export async function clientLoader() {
   return await new Http().getPosts(undefined, 0);
@@ -29,7 +29,7 @@ export default function Posts({ loaderData }: Route.ComponentProps) {
         if (test) {
           setPosts({
             pageCount: 1,
-            posts: [await http.getPost(Number(s))],
+            posts: [await http.getPost(s)],
           });
           setPage(0);
         } else {

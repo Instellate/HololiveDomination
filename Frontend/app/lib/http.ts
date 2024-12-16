@@ -120,7 +120,7 @@ export default class Http {
     return await this.baseRequest<GetPosts>(`/api/posts?${searchParams.toString()}`, 'GET');
   }
 
-  public async getPost(postId: number) {
+  public async getPost(postId: string) {
     return await this.baseRequest<Post>(`/api/posts/${postId}`, 'GET');
   }
 
