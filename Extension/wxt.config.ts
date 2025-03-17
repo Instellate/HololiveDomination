@@ -24,6 +24,7 @@ export default defineConfig({
         'https://*.pximg.net/*',
         'https://*.pixiv.net/*',
         'https://raw.githubusercontent.com/*',
+        'https://*.twimg.com/*',
       ],
       browser_specific_settings: {
         gecko: {
