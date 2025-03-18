@@ -45,9 +45,13 @@ async function getTags(id: string) {
 
     for (const tag of unfilteredTags) {
       const hololiveTags: Record<string, string> = HololiveTags;
-      const talent = hololiveTags[tag];
+      const talent = hololiveTags[tag.toLowerCase()];
       if (talent) {
-        tags.push(talent);
+        if (talent.includes(' ')) {
+          tags.push(...talent.split(' '));
+        } else {
+          tags.push(talent);
+        }
       }
     }
 

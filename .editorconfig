@@ -31,3 +31,7 @@ charset = utf-8
 csharp_preserve_single_line_statements = false
 csharp_wrap_arguments_style = chop_if_long
 csharp_style_prefer_primary_constructors = false
+
+[*.{tsx,ts,js,jsx}]
+indent_style = space
+indent_size = 2
