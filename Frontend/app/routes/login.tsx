@@ -21,7 +21,6 @@ export default function SignIn({ loaderData }: Route.ComponentProps) {
 
     for (const provider of loaderData.providers) {
       const link =
-        import.meta.env.VITE_DOMINATION_API_URL +
         '/api/authentication/challenge?' +
         new URLSearchParams({
           provider,

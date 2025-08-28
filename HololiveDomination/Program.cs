@@ -11,9 +11,11 @@ IResourceBuilder<MinioResource> minio = builder.AddMinio("minio")
     .WithVolume("minio_data", "/data");
 
 builder.AddProject<Projects.Domination>("api")
-    .WithReference(postgresdb)
+   .WithReference(postgresdb)
     .WithReference(postgres)
     .WithReference(minio)
+    .WaitFor(postgresdb)
+    .WaitFor(minio)
     .WithEnvironment(c =>
     {
         c.EnvironmentVariables["Discord__Id"]

@@ -11,71 +11,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbbc3517-9d21-4e0b-887f-1ccd88d8b100" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Controllers/AuthenticationController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Controllers/CommentsController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Controllers/PostsController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Controllers/UsersController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Domination.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Entities/Comment.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Entities/Post.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Entities/PostService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Entities/Tag.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Entities/TagLink.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Entities/User.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/HololiveDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/HololiveDesignTimeFactory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/HololivePrincipleClaimsFactory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Migrations/20241206132734_Initial.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Migrations/20241206132734_Initial.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Migrations/20241207075637_UserSearchVector.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Migrations/20241207075637_UserSearchVector.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Migrations/20241207092829_Comments.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Migrations/HololiveDbContextModelSnapshot.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Program.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Properties/launchSettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Requirements/CanCommentRequirement.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Requirements/CanCommentRequirementHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Requirements/DisallowRoleRequirement.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Requirements/DisallowRoleRequirementHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Structures/CommentAuthorResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Structures/CommentRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Structures/CommentsResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Structures/EditCurrentUserRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Structures/EditPostRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Structures/EditUserRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Structures/PostResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Structures/PostsResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Structures/UserResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Structures/UserRoles.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Structures/UsersResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/appsettings.Development.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/appsettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Extension/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Extension/public/icon/128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Extension/public/icon/16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Extension/public/icon/32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Extension/public/icon/48.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Extension/public/icon/96.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontend/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontend/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontend/.prettierignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontend/.prettierrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HololiveDomination.sln" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HololiveDomination/HololiveDomination.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HololiveDomination/MinioResource.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HololiveDomination/MinioResourceBuilder.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HololiveDomination/Program.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HololiveDomination/Properties/launchSettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HololiveDomination/appsettings.Development.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HololiveDomination/appsettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/global.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/projectSettingsUpdater.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domination/Domination.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Domination/Domination.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domination/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domination/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/vite.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HololiveDomination.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/HololiveDomination.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HololiveDomination/HololiveDomination.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/HololiveDomination/HololiveDomination.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HololiveDomination/MinioResourceBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HololiveDomination/MinioResourceBuilder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HololiveDomination/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HololiveDomination/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global.json" beforeDir="false" afterPath="$PROJECT_DIR$/global.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,61 +31,27 @@
     <option name="firstShow" value="false" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/1066090712fd47489e6d8c160646ba1512e00/37/97156bf2/02000018pdb1.il" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/73ae53c9ae9c4510b278b0918f639d8416200/a2/877263a2/02000016pdb5.il" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/a58e3fc6eae34f4fa001f97775c759e317000/4f/0557084f/02000010pdb13.il" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/a58e3fc6eae34f4fa001f97775c759e317000/4f/0557084f/02000010pdb13High.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/a58e3fc6eae34f4fa001f97775c759e317000/4f/0557084f/02000010pdb13Low.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/14a2b70486934722acea07b38045413ab2d200/48/3677d148/String.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/14a2b70486934722acea07b38045413ab2d200/86/e04a4a46/Monitor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1c1caa2fa54d4216940db704b8025c4c81200/59/ad424f38/IdentityServiceCollectionExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1c1caa2fa54d4216940db704b8025c4c81200/88/70d7eb11/SignInManager`1.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1c1caa2fa54d4216940db704b8025c4c81200/d6/27cac6b0/IdentityConstants.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/578d531516844b82bdedb52860cb31dc6a00/af/d5a32700/ConfigurationExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5efdeebf8ca04f06a4777baa3149a8b213600/82/320e020a/ClaimsIdentity.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5efdeebf8ca04f06a4777baa3149a8b213600/a4/0e389cdb/ClaimsPrincipal.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/639ce2134dd4438bb898b9d3cee522fd2b738/56/ee95392b/IUserClaimsPrincipalFactory`1.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/784599f39d654191abead1bfc1f7b191b800/28/44bd0d25/AuthenticationProperties.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7c2ecf13f5ec4499a77a06d8880bd5c415800/8a/40858a0e/IAuthorizationRequirement.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7fd18f703e254b3da5c2bad5e9c8452814400/59/5665ab46/OAuthExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c3766032899a4d0088f9f1962746bdafc11b0/8d/07213677/ServiceTypes.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/eecc107522e742378efeceb4cc58c38d21200/45/d7b8ae4d/AuthenticationServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/eecc107522e742378efeceb4cc58c38d21200/9b/48fcf51f/AuthenticationBuilder.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/eecc107522e742378efeceb4cc58c38d21200/bc/5ee555de/RemoteAuthenticationOptions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f8dbf2e4204a4497b2061a48f87ada3626aa20/a0/b65100eb/IDesignTimeDbContextFactory`1.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/12a1519c2fdb37951dc1ca313de1ae4e612d06f8d87635b775e1dc8fff/IMinioClient.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1baa44c7276f3e5542254f5f1c2df551a379b6221cc36705542d390f0666edb/PostgresServerResource.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/25fb42e38be245b9f4a9812e393c9a9708e91b296c5aba9ed72b6fafae34e/ParameterDefault.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/356270e2717c33121bad9a6f7bb4afcde53f347fdfecadbec26a2d555c7d58/IResourceWithEnvironment.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ccf2c812846e0e85c588caa9630e16333dad8be7787b21371a175dc495bc1c/DiscordAuthenticationExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/44fcf49b8b0332befbe75e2b342cf6014a2922adb1dd1b03f8caed37d241a66/PostgresDatabaseResource.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/46d189e26f7a33a2305aaa97a8aa6f85532b6f8f94220f43cfa7ebb2e2b9d6/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5bdaef2117da32f9fb99b42a7cfaf21967bc94f852a943247ca481d6ed5b59d/ReferenceExpression.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5c6a959d5749a681a307b418a971ffc40bec9fe3d8572e0b7864ae3be1a697a/IResourceWithConnectionString.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/727866934a48046b3ccd354092475e0bccff8f9c986b201249992b7518a/AspireEFPostgreSqlExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/76bb40a658eadce1eaa3283f4a21f651f45bc2c4c9a2e8b48ebe5817fc4628/IdentityEntityFrameworkBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7a65201efceba2f2b68605598dbbaa526d0f952a7675d125880998aa63/ContainerResource.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7bfb40cd30c1428da635603d7f313f9f2c1f33b4c236cebbb311b3db71cd9d7/IResourceWithArgs.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d382df578ec93391918cfaa4ce7f4b8f35c9aed1241d6556dc9be26df13c/IdentityUser.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7e9c4b58f4c369d7bc3635f33b75187b4a86e544d06043859cfcee5a6499/PostgresBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8802ae885842c62b19613deaec285f06357a7bef5ca6a233c2559d26cc411/ContainerResourceBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8c521c6a7880cfe0802fe7a27ea19771b59ed1d89b695f9674944bd2eca7d52/IResourceBuilder.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/aa197aae621d21f6f0e3165be2ecf965e630b2f835638738cd1daac2f8a6ede3/UserClaimsPrincipalFactory.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b280d0f3501a3350a68d4422e7e2435feffb029faeeed8d1035e9a1cb5925/ConnectionStringReference.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ca473a723cf1c75414da67c6c12c675028f1ab84bac29a1314f2747e3b284b51/IValueProvider.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ca5d8113a617d99d59bfbe849e85c77f136a0b06a175c486ac13ca645e027cc/ParameterResourceBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e267e6247d48b288fc26791a8f71ace2a8dc9d0f11777b17f9df5890875a36/ResourceBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f2edc9d371481d11e49b9fd565b8b9f6efb738bcfbb49bf24b3d2d6b75a8bc/IResourceWithEndpoints.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4afd6eaa21b44c15b819957c24b8b6071daa00/94/3cfa6a5f/ControllerEndpointRouteBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/34dacb4829d3259ad5412aaa6583a02e53acf0df187db3c754a9ac167dcdbd/ResourceBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Domination/Structures/EditUserRequest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HololiveDomination/Program.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="Toolset" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2pkPczp4FD1F051MhNbZNPFMFwo" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -153,20 +64,20 @@
     &quot;Aspire Host.HololiveDomination: https.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;posts&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RunManager" selected="Aspire Host.HololiveDomination: https">
     <configuration name="HololiveDomination: http" type="AspireHostConfiguration" factoryName="Aspire Host" activateToolWindowBeforeRun="false">
       <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/HololiveDomination/HololiveDomination.csproj" />
-      <option name="PROJECT_TFM" value="net8.0" />
+      <option name="PROJECT_TFM" value="net9.0" />
       <option name="LAUNCH_PROFILE_NAME" value="http" />
       <option name="TRACK_ARGUMENTS" value="1" />
       <option name="ARGUMENTS" value="" />
@@ -183,6 +94,7 @@
       </envs>
       <option name="USE_PODMAN_RUNTIME" value="0" />
       <option name="TRACK_URL" value="1" />
+      <option name="TRACK_BROWSER_LAUNCH" value="1" />
       <browser url="http://localhost:15066" />
       <method v="2">
         <option name="Build" />
@@ -190,7 +102,7 @@
     </configuration>
     <configuration name="HololiveDomination: https" type="AspireHostConfiguration" factoryName="Aspire Host" activateToolWindowBeforeRun="false">
       <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/HololiveDomination/HololiveDomination.csproj" />
-      <option name="PROJECT_TFM" value="net8.0" />
+      <option name="PROJECT_TFM" value="net9.0" />
       <option name="LAUNCH_PROFILE_NAME" value="https" />
       <option name="TRACK_ARGUMENTS" value="1" />
       <option name="ARGUMENTS" value="" />
@@ -207,6 +119,7 @@
       </envs>
       <option name="USE_PODMAN_RUNTIME" value="0" />
       <option name="TRACK_URL" value="1" />
+      <option name="TRACK_BROWSER_LAUNCH" value="1" />
       <browser url="https://localhost:17259" />
       <method v="2">
         <option name="Build" />
@@ -214,7 +127,7 @@
     </configuration>
     <configuration name="Domination: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Domination/Domination.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="net9.0" />
       <option name="LAUNCH_PROFILE_NAME" value="http" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -223,13 +136,14 @@
       <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
       <option name="SEND_DEBUG_REQUEST" value="1" />
       <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <option name="AUTO_ATTACH_CHILDREN" value="0" />
       <method v="2">
         <option name="Build" />
       </method>
     </configuration>
     <configuration name="Domination: https" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Domination/Domination.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="net9.0" />
       <option name="LAUNCH_PROFILE_NAME" value="https" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -238,6 +152,7 @@
       <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
       <option name="SEND_DEBUG_REQUEST" value="1" />
       <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <option name="AUTO_ATTACH_CHILDREN" value="0" />
       <method v="2">
         <option name="Build" />
       </method>
@@ -279,14 +194,46 @@
       <workItem from="1733660217780" duration="131000" />
       <workItem from="1733661949724" duration="676000" />
       <workItem from="1733664252350" duration="310000" />
+      <workItem from="1756281468407" duration="191000" />
+      <workItem from="1756284135581" duration="302000" />
+      <workItem from="1756287782784" duration="313000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="dotnet:OpenTelemetry.Extensions.Hosting" />
+    <option featureType="dependencySupport" implementationName="dotnet:OpenTelemetry.Api" />
+    <option featureType="dependencySupport" implementationName="executable:docker" />
+    <option featureType="dependencySupport" implementationName="dotnet:Aspire.Hosting" />
+    <option featureType="dependencySupport" implementationName="dotnet:OpenTelemetry" />
+    <option featureType="dependencySupport" implementationName="dotnet:Microsoft.EntityFrameworkCore.Abstractions" />
+    <option featureType="dependencySupport" implementationName="dotnet:Microsoft.EntityFrameworkCore.Relational" />
+    <option featureType="dependencySupport" implementationName="dotnet:Microsoft.EntityFrameworkCore" />
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

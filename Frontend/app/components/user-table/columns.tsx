@@ -189,7 +189,7 @@ export const postsColumns: ColumnDef<Post>[] = [
               <div className="w-64 rounded-sm border border-border bg-background p-4">
                 <img
                   className="rounded-sm"
-                  src={`${import.meta.env.VITE_DOMINATION_API_URL}/api/posts/${post.id}/image`}
+                  src={`/api/posts/${post.id}/image`}
                   loading="lazy"
                 />
               </div>

@@ -8,21 +8,32 @@ import type { ServerOptions as HttpsServerOptions } from 'node:https';
 import mkcert from 'vite-plugin-mkcert';
 import mdx from '@mdx-js/rollup';
 import remarkFrontmatter from 'remark-frontmatter';
-import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
 
 export default defineConfig({
   server: {
     https: true as unknown as HttpsServerOptions,
+    proxy: {
+      '/api': {
+        target: 'https://localhost:7070',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
   css: {
     postcss: {
       plugins: [tailwindcss, autoprefixer],
     },
   },
-  plugins: [mdx({
-    remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter]
-    
-  }), reactRouter(), tsconfigPaths(), mkcert()],
+  plugins: [
+    mdx({
+      remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
+    }),
+    reactRouter(),
+    tsconfigPaths(),
+    mkcert(),
+  ],
   resolve: {
     alias: {
       '~/': path.resolve('./app'),

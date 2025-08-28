@@ -37,7 +37,7 @@ export default function Id({ loaderData }: Route.ComponentProps) {
         <div className="flex w-fit items-center justify-center rounded-sm border border-border p-6">
           <img
             className="w-full"
-            src={`${import.meta.env.VITE_DOMINATION_API_URL}/api/posts/${loaderData.id}/image`}
+            src={`/api/posts/${loaderData.id}/image`}
           />
         </div>
       </div>

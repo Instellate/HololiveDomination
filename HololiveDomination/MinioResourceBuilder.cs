@@ -27,7 +27,7 @@ public static class MinioResourceBuilder
             .AddResource(resource)
             .WithImage("minio/minio")
             .WithImageRegistry("docker.io")
-            .WithEnvironment("MINIO_ROOT_PASSWORD", minioPassword.Value)
+            .WithEnvironment("MINIO_ROOT_PASSWORD", minioPassword)
             .WithHttpEndpoint(port: port ?? 9000, targetPort: 9000)
             .WithArgs("server", "/data");
 

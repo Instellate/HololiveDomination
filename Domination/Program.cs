@@ -32,13 +32,6 @@ public static class Program
                 = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
         });
 
-        builder.Services.AddCors(o => o.AddPolicy(name: "development",
-            policy => policy
-                .WithOrigins("https://localhost:5173")
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials()));
-
         builder.AddNpgsqlDbContext<HololiveDbContext>("postgresdb",
             configureDbContextOptions: o => o.UseSnakeCaseNamingConvention());
 
@@ -111,19 +104,17 @@ public static class Program
             db.Database.Migrate();
         }
 
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseCors("development");
-        }
-        else
+        if (!app.Environment.IsDevelopment())
         {
             app.UseForwardedHeaders();
         }
 
+        app.UseRouting();
+
         app.UseAuthentication();
         app.UseAuthorization();
 
-        app.MapControllerRoute(name: "default", "{controller}/{action=Index}/{id?}");
+        app.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
         app.Run();
     }
 

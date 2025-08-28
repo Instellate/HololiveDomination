@@ -64,7 +64,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           key={post.id}
         >
           <img
-            src={`${import.meta.env.VITE_DOMINATION_API_URL}/api/posts/${post.id}/image`}
+            src={`/api/posts/${post.id}/image`}
             className="rounded-sm"
           />
         </a>,

@@ -67,7 +67,7 @@ export default class Http {
     method: HttpMethods,
     body?: unknown,
   ): Promise<T | void> {
-    const response = await fetch(import.meta.env.VITE_DOMINATION_API_URL + url, {
+    const response = await fetch(url, {
       body: body !== undefined ? JSON.stringify(body) : undefined,
       method: method,
       credentials: 'include',
