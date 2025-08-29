@@ -1,7 +1,7 @@
 import { reactRouter } from '@react-router/dev/vite';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
-import tailwindcss from 'tailwindcss';
+import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import type { ServerOptions as HttpsServerOptions } from 'node:https';
@@ -23,7 +23,7 @@ export default defineConfig({
   },
   css: {
     postcss: {
-      plugins: [tailwindcss, autoprefixer],
+      plugins: [autoprefixer],
     },
   },
   plugins: [
@@ -33,6 +33,7 @@ export default defineConfig({
     reactRouter(),
     tsconfigPaths(),
     mkcert(),
+    tailwindcss()
   ],
   resolve: {
     alias: {

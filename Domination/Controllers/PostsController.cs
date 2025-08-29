@@ -407,20 +407,10 @@ public class PostsController : ControllerBase
             return NotFound();
         }
 
-        List<CommentsResponse> response = new(post.Comments.Count);
+        List<CommentResponse> response = new(post.Comments.Count);
         foreach (Comment comment in post.Comments)
         {
-            response.Add(new CommentsResponse
-            {
-                Id = comment.Id,
-                Content = comment.Content,
-                Author = new CommentAuthorResponse
-                {
-                    Id = comment.Author.Id,
-                    Name = comment.Author.UserName ?? "No name",
-                },
-                CreatedAt = comment.CreatedAt.ToUnixTimeMilliseconds(),
-            });
+            response.Add(new CommentResponse(comment));
         }
 
         return Ok(response);
@@ -446,23 +436,24 @@ public class PostsController : ControllerBase
             return NotFound();
         }
 
-        post.Comments.Add(new Comment
+        Comment comment = new()
         {
             Content = body.Content,
             Author = user,
             Post = post
-        });
+        };
+        this._db.Comments.Add(comment);
+        await this._db.SaveChangesAsync(ct);
 
         this._db.Logs.Add(new Log
         {
             By = user,
             Towards = post.Id,
-            Description = "Created comment"
+            Description = $"Created comment {comment.Id}"
         });
+            await this._db.SaveChangesAsync(ct);
 
-        await this._db.SaveChangesAsync(ct);
-
-        return Created();
+        return Created("/", new CommentResponse(comment));
     }
 
     [HttpGet("tags")]

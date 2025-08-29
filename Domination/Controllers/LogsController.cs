@@ -25,9 +25,7 @@ public class LogsController : ControllerBase
         [FromQuery] int page = 0,
         CancellationToken ct = default)
     {
-        IQueryable<Log> query = this._db.Logs.Take(20)
-            .Skip(page * 20)
-            .OrderByDescending(l => l.CreatedAt);
+        IQueryable<Log> query = this._db.Logs;
 
         if (by is not null)
         {
@@ -38,6 +36,11 @@ public class LogsController : ControllerBase
         {
             query = query.Where(l => l.Towards == towards);
         }
+
+        query = query
+            .OrderByDescending(l => l.CreatedAt)
+            .Skip(page * 20)
+            .Take(20);
 
         List<Log> logs = await query.ToListAsync(ct);
 

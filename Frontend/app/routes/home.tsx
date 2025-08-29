@@ -1,6 +1,6 @@
 import Paginator from '~/components/paginator';
 import { cn } from '~/lib/utils';
-import { useSearchParams } from 'react-router';
+import { Link, useNavigate, useSearchParams } from 'react-router';
 import type { Route } from './+types/home';
 import { useCallback, useMemo, useState } from 'react';
 import Http from '~/lib/http';
@@ -39,6 +39,7 @@ export async function clientLoader({ request }: Route.ClientLoaderArgs) {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const posts = loaderData.posts;
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedTags = (() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -54,23 +55,27 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const [searchInput, setSearchInput] = useState<string>('');
 
   const postsData = useMemo(() => {
-    const postComponents: JSX.Element[] = [];
+    return posts.map((p) => (
+      <Link
+        className="flex items-center justify-center rounded-sm border border-border p-6"
+        to={`/posts/${p.id}`}
+        key={p.id}
+        onClick={(e) => {
+          if (e.altKey) {
+            if (e.ctrlKey || e.shiftKey) {
+              window.open(p.url, e.ctrlKey ? 'mozillaTab' : '_blank')?.focus();
+            } else {
+              window.location.href = p.url;
+            }
 
-    for (const post of posts) {
-      postComponents.push(
-        <a
-          className="flex items-center justify-center rounded-sm border border-border p-6"
-          href={post.url}
-          key={post.id}
-        >
-          <img
-            src={`/api/posts/${post.id}/image`}
-            className="rounded-sm"
-          />
-        </a>,
-      );
-    }
-    return postComponents;
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }}
+      >
+        <img src={`/api/posts/${p.id}/image`} className="rounded-sm" />
+      </Link>
+    ));
   }, [posts]);
 
   const setSelectedTags = useCallback(

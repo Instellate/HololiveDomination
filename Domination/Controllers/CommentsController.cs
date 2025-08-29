@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Domination.Controllers;
 
 [ApiController]
-[Authorize("CanComment")]
 [Route("api/[controller]")]
 public class CommentsController : ControllerBase
 {
@@ -21,6 +20,7 @@ public class CommentsController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize("CanComment")]
     public async Task<IActionResult> EditCommentAsync(Guid id,
         [FromBody] CommentRequest body,
         CancellationToken ct = default)
@@ -56,6 +56,7 @@ public class CommentsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize("CanComment")]
     public async Task<IActionResult> DeleteCommentAsync(Guid id, CancellationToken ct = default)
     {
         User? user = await this._userManager.GetUserAsync(this.User);
@@ -96,7 +97,7 @@ public class CommentsController : ControllerBase
         {
             By = user,
             Towards = id.ToString(),
-            Description = "Removed comment"
+            Description = $"Removed comment with content `{comment.Content}`"
         });
 
         this._db.Comments.Remove(comment);

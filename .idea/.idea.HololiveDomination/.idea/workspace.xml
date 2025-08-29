@@ -11,21 +11,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbbc3517-9d21-4e0b-887f-1ccd88d8b100" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Domination/Entities/Log.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Structures/LogResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domination/Structures/LogsResponse.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Domination/Controllers/CommentsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domination/Controllers/CommentsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domination/Controllers/LogsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domination/Controllers/LogsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Domination/Controllers/PostsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domination/Controllers/PostsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Domination/Controllers/UsersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domination/Controllers/UsersController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Domination/HololiveDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domination/HololiveDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Domination/Migrations/HololiveDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domination/Migrations/HololiveDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Domination/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domination/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/components/user-table/columns.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/components/user-table/columns.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/layouts/default.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/layouts/default.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domination/Structures/CommentsResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domination/Structures/CommentResponse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/components/ui/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/components/ui/card.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/app/lib/http.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/lib/http.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HololiveDomination.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/HololiveDomination.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/root.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/root.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/routes/home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/routes/home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/routes/posts/id.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/routes/posts/id.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/components.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/components.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/postcss.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/postcss.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/vite.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +58,13 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bce6f3053e1fbd67fd056dab8e765d67ddf8f91d670fec42dac84d94d36ed/BucketExistsArgs.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d515fb889657fcdcace3fed90735057b458ff9e0bb60bded7c8fe8b3a4673c/BucketArgs.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/.microsoft/usersecrets/6a71e82e-62c1-4a30-8431-137fb0aed103/secrets.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///home/love/RiderProjects/HololiveDomination/Domination/Controllers/CommentsController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/love/RiderProjects/HololiveDomination/Domination/Controllers/PostsController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/love/RiderProjects/HololiveDomination/Domination/Controllers/UsersController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Domination/Entities/Log.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///home/love/RiderProjects/HololiveDomination/Domination/HololiveDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/love/RiderProjects/HololiveDomination/Domination/Migrations/HololiveDbContextModelSnapshot.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/love/RiderProjects/HololiveDomination/Domination/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Domination/Structures/EditUserRequest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Domination/Structures/LogResponse.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Domination/Structures/LogsResponse.cs" root0="FORCE_HIGHLIGHTING" />
@@ -67,7 +74,7 @@
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="Toolset" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -227,6 +234,9 @@
       <workItem from="1756455165886" duration="4128000" />
       <workItem from="1756459722384" duration="633000" />
       <workItem from="1756461287282" duration="1453000" />
+      <workItem from="1756462894241" duration="97000" />
+      <workItem from="1756468349233" duration="120000" />
+      <workItem from="1756472277689" duration="426000" />
     </task>
     <task id="LOCAL-00001" summary="Updated to .NET 9.0&#10;Removed the need for CORS for development on the frontend">
       <option name="closed" value="true" />
@@ -244,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756453034494</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added logs">
+      <option name="closed" value="true" />
+      <created>1756462981664</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1756462981664</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,7 +284,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Updated to .NET 9.0&#10;Removed the need for CORS for development on the frontend" />
     <MESSAGE value="Added Privacy Policy and Terms of Service confirmation&#10;Sign out actually signs you out" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Privacy Policy and Terms of Service confirmation&#10;Sign out actually signs you out" />
+    <MESSAGE value="Added logs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added logs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

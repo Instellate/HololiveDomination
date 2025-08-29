@@ -57,6 +57,16 @@ export type GetLogs = {
   pageCount: number;
 };
 
+export type Comment = {
+  id: string;
+  content: string;
+  author: {
+    id: string;
+    name: string;
+  };
+  createdAt: number;
+};
+
 type HttpMethods = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export class HttpError {
@@ -174,5 +184,26 @@ export default class Http {
     }
 
     return this.baseRequest<GetLogs>(`/api/logs?${searchParams.toString()}`, 'GET');
+  }
+
+  public getComments(id: string, page: number = 0) {
+    const searchParams = new URLSearchParams();
+    searchParams.set('page', String(page));
+    return this.baseRequest<Comment[]>(
+      `/api/posts/${id}/comments?${searchParams.toString()}`,
+      'GET',
+    );
+  }
+
+  public createComment(id: string, content: string): Promise<void> {
+    return this.baseRequest(`/api/posts/${id}/comments`, 'POST', { content });
+  }
+
+  public deleteComment(id: string): Promise<void> {
+    return this.baseRequest(`/api/comments/${id}`, 'DELETE');
+  }
+
+    public editComment(id: string, content: string): Promise<void> {
+    return this.baseRequest(`/api/comments/${id}`, 'PUT', { content });
   }
 }
