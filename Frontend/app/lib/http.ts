@@ -195,7 +195,7 @@ export default class Http {
     );
   }
 
-  public createComment(id: string, content: string): Promise<void> {
+  public createComment(id: string, content: string): Promise<Comment> {
     return this.baseRequest(`/api/posts/${id}/comments`, 'POST', { content });
   }
 

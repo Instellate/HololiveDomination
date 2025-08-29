@@ -158,6 +158,11 @@ public class PostsController : ControllerBase
 
         foreach (string tag in tagSplit)
         {
+            if (string.IsNullOrWhiteSpace(tag))
+            {
+                continue;
+            }
+            
             Tag? dbTag = null;
             foreach (Tag t in dbTags)
             {

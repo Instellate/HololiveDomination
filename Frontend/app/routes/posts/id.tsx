@@ -135,7 +135,8 @@ export default function Id({ loaderData }: Route.ComponentProps) {
   const createComment = useCallback(async () => {
     try {
       setDisableSubmit(true);
-      await new Http().createComment(loaderData.post.id, textarea.current!.value);
+      const comment = await new Http().createComment(loaderData.post.id, textarea.current!.value);
+      setCommentsData([comment, ...commentsData]);
     } finally {
       setDisableSubmit(false);
       textarea.current!.value = '';
@@ -144,9 +145,10 @@ export default function Id({ loaderData }: Route.ComponentProps) {
 
   const deleteComment = useCallback(
     async (commentId: string) => {
-      const index = commentsData.findIndex((c) => c.id === commentId);
-      commentsData.splice(index, 1);
-      setCommentsData(commentsData);
+      const copy = [...commentsData];
+      const index = copy.findIndex((c) => c.id === commentId);
+      copy.splice(index, 1);
+      setCommentsData(copy);
 
       await new Http().deleteComment(commentId);
     },
