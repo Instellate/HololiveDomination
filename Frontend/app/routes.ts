@@ -5,6 +5,7 @@ export default [
   layout('./layouts/default.tsx', [
     index('routes/home.tsx'),
     route('users', './routes/users.tsx'),
+    route('logs', './routes/logs.tsx'),
     ...prefix('posts', [index('./routes/posts/index.tsx'), route(':id', './routes/posts/id.tsx')]),
     layout('./layouts/articles.tsx', await getAllArticlesRoute()),
   ]),

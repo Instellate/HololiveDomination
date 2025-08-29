@@ -9,12 +9,13 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Minio;
+using Minio.DataModel.Args;
 
 namespace Domination;
 
 public static class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -105,10 +106,19 @@ public static class Program
         {
             HololiveDbContext db
                 = scope.ServiceProvider.GetRequiredService<HololiveDbContext>();
-            db.Database.Migrate();
+            await db.Database.MigrateAsync();
+
+            if (app.Environment.IsDevelopment())
+            {
+                IMinioClient minio = scope.ServiceProvider.GetRequiredService<IMinioClient>();
+                if (!await minio.BucketExistsAsync(new BucketExistsArgs().WithBucket("posts")))
+                {
+                    await minio.MakeBucketAsync(new MakeBucketArgs().WithBucket("posts"));
+                }
+            }
         }
 
-        if (!app.Environment.IsDevelopment())
+        if (app.Environment.IsProduction())
         {
             app.UseForwardedHeaders();
         }

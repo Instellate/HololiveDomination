@@ -43,6 +43,13 @@ public class CommentsController : ControllerBase
             return Forbid();
         }
 
+        this._db.Logs.Add(new Log
+        {
+            By = user,
+            Towards = id.ToString(),
+            Description = $"Edited comment content `{comment.Content}` to `{body.Content}`"
+        });
+
         comment.Content = body.Content;
         await this._db.SaveChangesAsync(ct);
         return Ok();
@@ -70,17 +77,13 @@ public class CommentsController : ControllerBase
             bool isStaff = false;
             foreach (string role in roles)
             {
-                if (role == "Admin")
+                if (role != "Admin" && role != "Staff")
                 {
-                    isStaff = true;
-                    break;
+                    continue;
                 }
 
-                if (role == "Staff")
-                {
-                    isStaff = true;
-                    break;
-                }
+                isStaff = true;
+                break;
             }
 
             if (!isStaff)
@@ -88,6 +91,13 @@ public class CommentsController : ControllerBase
                 return Forbid();
             }
         }
+
+        this._db.Logs.Add(new Log
+        {
+            By = user,
+            Towards = id.ToString(),
+            Description = "Removed comment"
+        });
 
         this._db.Comments.Remove(comment);
         await this._db.SaveChangesAsync(ct);

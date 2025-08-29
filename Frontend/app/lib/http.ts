@@ -45,6 +45,18 @@ export type EditPost = {
   isLewd: boolean;
 };
 
+export type Log = {
+  by: string;
+  towards: string;
+  description: string;
+  createdAt: number;
+};
+
+export type GetLogs = {
+  logs: Log[];
+  pageCount: number;
+};
+
 type HttpMethods = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export class HttpError {
@@ -145,5 +157,22 @@ export default class Http {
     searchParams.set('query', query);
 
     return this.baseRequest<string[]>(`/api/posts/tags?${searchParams.toString()}`, 'GET');
+  }
+
+  public getLogs(
+    page: number = 0,
+    by: string | undefined = undefined,
+    towards: string | undefined = undefined,
+  ) {
+    const searchParams = new URLSearchParams();
+    searchParams.set('page', String(page));
+    if (by) {
+      searchParams.set('by', by);
+    }
+    if (towards) {
+      searchParams.set('towards', towards);
+    }
+
+    return this.baseRequest<GetLogs>(`/api/logs?${searchParams.toString()}`, 'GET');
   }
 }

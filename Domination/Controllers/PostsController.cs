@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Headers;
+using System.Text;
 using Domination.Entities;
 using Domination.Structures;
 using Microsoft.AspNetCore.Authorization;
@@ -195,6 +196,15 @@ public class PostsController : ControllerBase
 
         fileStream.Position = 0;
         await this._minio.PutObjectAsync(putObject, ct);
+
+        this._db.Logs.Add(new Log
+        {
+            Id = Guid.NewGuid(),
+            ById = Guid.Parse(this._userManager.GetUserId(this.User) ?? ""),
+            Towards = id,
+            Description = "Created post"
+        });
+
         await this._db.SaveChangesAsync(ct);
 
         return Created();
@@ -300,6 +310,14 @@ public class PostsController : ControllerBase
             .WithObject(id);
 
         await this._minio.RemoveObjectAsync(removeObject, ct);
+
+        this._db.Logs.Add(new Log
+        {
+            ById = Guid.Parse(this._userManager.GetUserId(this.User) ?? ""),
+            Towards = id,
+            Description = "Removed post"
+        });
+
         await this._db.SaveChangesAsync(ct);
 
         return Ok();
@@ -319,6 +337,8 @@ public class PostsController : ControllerBase
         {
             return NotFound();
         }
+
+        StringBuilder logDesc = new();
 
         if (body.Tags is not null)
         {
@@ -344,17 +364,28 @@ public class PostsController : ControllerBase
                     Tag = dbTag
                 });
             }
+
+            logDesc.AppendLine($"Set tags to {body.Tags}");
         }
 
         if (body.Author is not null)
         {
             post.Author = body.Author;
+            logDesc.AppendLine($"Set author to {body.Author}");
         }
 
         if (body.IsLewd is { } isLewd)
         {
             post.IsLewd = isLewd;
+            logDesc.AppendLine($"Set IsLewd to {isLewd}");
         }
+
+        this._db.Logs.Add(new Log
+        {
+            ById = Guid.Parse(this._userManager.GetUserId(this.User) ?? ""),
+            Towards = post.Id,
+            Description = logDesc.ToString(),
+        });
 
         await this._db.SaveChangesAsync(ct);
         return Ok();
@@ -409,6 +440,7 @@ public class PostsController : ControllerBase
 
         // ReSharper disable once MethodSupportsCancellation
         Post? post = await this._db.Posts.FindAsync(id);
+
         if (post is null)
         {
             return NotFound();
@@ -420,6 +452,14 @@ public class PostsController : ControllerBase
             Author = user,
             Post = post
         });
+
+        this._db.Logs.Add(new Log
+        {
+            By = user,
+            Towards = post.Id,
+            Description = "Created comment"
+        });
+
         await this._db.SaveChangesAsync(ct);
 
         return Created();

@@ -95,9 +95,14 @@ export default function Default({ loaderData }: Route.ComponentProps) {
       </React.Fragment>,
       <React.Fragment key="users">
         {(account?.roles.includes('Admin') || account?.roles.includes('Staff')) && (
-          <Link to="/users">
-            <Button variant="link">Users</Button>
-          </Link>
+          <>
+            <Link to="/users">
+              <Button variant="link">Users</Button>
+            </Link>
+            <Link to="/logs">
+              <Button variant="link">Logs</Button>
+            </Link>
+          </>
         )}
       </React.Fragment>,
       <DropdownMenu key="articles">

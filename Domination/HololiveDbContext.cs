@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Domination;
 
-public class HololiveDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>, IDataProtectionKeyContext
+public class HololiveDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>,
+    IDataProtectionKeyContext
 {
     public DbSet<Post> Posts { get; init; } = null!;
     public DbSet<Tag> Tags { get; init; } = null!;
@@ -14,6 +15,8 @@ public class HololiveDbContext : IdentityDbContext<User, IdentityRole<Guid>, Gui
     public DbSet<Comment> Comments { get; init; } = null!;
 
     public DbSet<DataProtectionKey> DataProtectionKeys { get; set; } = null!;
+
+    public DbSet<Log> Logs { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

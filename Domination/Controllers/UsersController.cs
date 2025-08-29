@@ -163,6 +163,8 @@ public class UsersController : ControllerBase
             }
         }
 
+        StringBuilder logDesc = new();
+
         IList<string> requestedUserRoles = await this._userManager.GetRolesAsync(requestedUser);
         UserRoles requestedUserHighestRole = UserRoles.None;
         foreach (string requestedUserRole in requestedUserRoles)
@@ -201,6 +203,7 @@ public class UsersController : ControllerBase
                 return BadRequest(removeResult.Errors);
             }
 
+
             if (body.Role != UserRoles.None)
             {
                 bool roleExists = await this._roleManager.RoleExistsAsync(bodyRole.ToString());
@@ -214,6 +217,8 @@ public class UsersController : ControllerBase
 
                 await this._userManager.AddToRoleAsync(requestedUser, bodyRole.ToString());
             }
+
+            logDesc.AppendLine($"Changed to role {bodyRole}");
         }
 
         if (body.RemoveUsername)
@@ -226,25 +231,32 @@ public class UsersController : ControllerBase
                 sb.Append(ModeratedNameChars[randomEntry]);
             }
 
+            logDesc.AppendLine($"Removed username {requestedUser.UserName}");
             await this._userManager.SetUserNameAsync(requestedUser, sb.ToString());
         }
 
-        if (body.DisallowChangingUsername is true)
+        switch (body.DisallowChangingUsername)
         {
-            requestedUser.CanChangeUsername = false;
-        }
-        else if (body.DisallowChangingUsername is false)
-        {
-            requestedUser.CanChangeUsername = true;
+            case true:
+                requestedUser.CanChangeUsername = false;
+                logDesc.AppendLine("Disallow changing username");
+                break;
+            case false:
+                requestedUser.CanChangeUsername = true;
+                logDesc.AppendLine("Allow changing username");
+                break;
         }
 
-        if (body.DisallowCommenting is true)
+        switch (body.DisallowCommenting)
         {
-            requestedUser.CanComment = false;
-        }
-        else if (body.DisallowCommenting is false)
-        {
-            requestedUser.CanComment = true;
+            case true:
+                requestedUser.CanComment = false;
+                logDesc.AppendLine("Disallow commenting");
+                break;
+            case false:
+                requestedUser.CanComment = true;
+                logDesc.AppendLine("Allow commenting");
+                break;
         }
 
         if (body.IsBanned is true)
@@ -260,11 +272,21 @@ public class UsersController : ControllerBase
 
             await this._userManager.AddToRoleAsync(requestedUser, "Banned");
             await this._userManager.RemoveFromRolesAsync(requestedUser, requestedUserRoles);
+            logDesc.AppendLine("Banned");
         }
         else if (body.IsBanned is false)
         {
             await this._userManager.RemoveFromRoleAsync(requestedUser, "Banned");
+            logDesc.AppendLine("Remove ban");
         }
+
+        this._db.Logs.Add(new Log
+        {
+            Id = Guid.NewGuid(),
+            By = requestor,
+            Towards = requestedUser.Id.ToString(),
+            Description = logDesc.ToString(),
+        });
 
         await this._db.SaveChangesAsync(ct);
         return Ok(new UserResponse
@@ -293,6 +315,14 @@ public class UsersController : ControllerBase
         {
             if (user.CanChangeUsername)
             {
+                this._db.Logs.Add(new Log
+                {
+                    Id = Guid.NewGuid(),
+                    By = user,
+                    Towards = user.Id.ToString(),
+                    Description = $"Changed username from {user.UserName} to {body.Username}"
+                });
+
                 user.UserName = body.Username;
             }
             else
