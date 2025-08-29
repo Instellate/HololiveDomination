@@ -3,6 +3,8 @@ import path from 'path';
 import bPath from 'path-browserify';
 // All functions here are related to importing the MDX files safely
 
+const removeExtension = /\.[^.]+$/;
+
 export async function getAllArticlesRoute(): Promise<RouteConfigEntry[]> {
   const articles = import.meta.glob('./**/*.md');
 
@@ -16,7 +18,7 @@ export async function getAllArticlesRoute(): Promise<RouteConfigEntry[]> {
       const dir = path.join('articles', path.parse(routePath).dir);
       routes.push(route(dir, routesPath));
     } else {
-      const dir = path.join('articles', routePath);
+      const dir = path.join('articles', routePath.replace(removeExtension, ''));
       routes.push(route(dir, routesPath));
     }
   }
@@ -46,11 +48,12 @@ export async function getArticleInformation(): Promise<ArticleInformation[]> {
 
     const routePath = articlePath.replace('./', '');
     const filename = bPath.parse(articlePath).name;
+
     let dir: string;
     if (filename === 'index') {
       dir = bPath.join('articles', bPath.parse(routePath).dir);
     } else {
-      dir = bPath.join('articles', routePath);
+      dir = bPath.join('articles', routePath.replace(removeExtension, ''));
     }
 
     articleInformation.push({

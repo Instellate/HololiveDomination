@@ -78,13 +78,17 @@ public static class Program
             });
         }
 
-        builder.Services.AddAuthorization(o =>
+        builder.Services.AddAuthorizationBuilder()
+            .AddDefaultPolicy("Default",
+                p =>
+                    p.RequireAuthenticatedUser()
+                        .AddRequirements(new DisallowRoleRequirement("Banned")))
+            .AddPolicy("CanComment", p => p.AddRequirements(new CanCommentRequirement()));
+
+        builder.Services.Configure<IdentityOptions>(o =>
         {
-            o.DefaultPolicy = new AuthorizationPolicyBuilder()
-                .RequireAuthenticatedUser()
-                .AddRequirements(new DisallowRoleRequirement("Banned"))
-                .Build();
-            o.AddPolicy("CanComment", p => p.AddRequirements(new CanCommentRequirement()));
+            o.User.RequireUniqueEmail = true;
+            o.SignIn.RequireConfirmedEmail = true;
         });
 
         builder.Services.AddMemoryCache();

@@ -1,5 +1,5 @@
 import { AlignJustify } from 'lucide-react';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Link, Outlet } from 'react-router';
 import { Button } from '~/components/ui/button';
 import {
@@ -11,22 +11,12 @@ import {
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '~/components/ui/sheet';
-import { useAccount } from '~/lib/account';
+import { useAccount, useSignOut } from '~/lib/account';
 import Http from '~/lib/http';
 import { cn } from '~/lib/utils';
 import { getArticleInformation } from '~/articles/import';
 import type { Route } from './+types/default';
 import React from 'react';
-
-async function signOut() {
-  try {
-    const http = new Http();
-    await http.signOut();
-    window.location.href = '/';
-  } catch (_err: unknown) {
-    /* empty */
-  }
-}
 
 export async function clientLoader() {
   return await getArticleInformation();
@@ -34,6 +24,7 @@ export async function clientLoader() {
 
 export default function Default({ loaderData }: Route.ComponentProps) {
   const account = useAccount();
+  const signOutFunc = useSignOut();
 
   const articles = useMemo(
     () =>
@@ -44,6 +35,17 @@ export default function Default({ loaderData }: Route.ComponentProps) {
       )),
     [loaderData],
   );
+
+  const signOut = useCallback(async () => {
+    try {
+      const http = new Http();
+      await http.signOut();
+      window.location.href = '/';
+    } catch (_err: unknown) {
+      /* empty */
+    }
+    signOutFunc();
+  }, [signOutFunc]);
 
   const accountComponents = useMemo(() => {
     if (account) {

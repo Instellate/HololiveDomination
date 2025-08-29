@@ -87,59 +87,63 @@ export default class Http {
     }
   }
 
-  public async editUser(userId: string, body: Partial<EditUser>): Promise<User> {
-    return await this.baseRequest<User>(`/api/users/${userId}`, 'PATCH', body);
+  public async confirmUser(): Promise<void> {
+    return this.baseRequest('/api/authentication/confirm', 'POST');
   }
 
-  public async signOut() {
-    return await this.baseRequest('/api/authentication/signout', 'DELETE');
+  public signOut() {
+    return this.baseRequest('/api/authentication/signout', 'DELETE');
   }
 
-  public async getCurrentUser() {
-    return await this.baseRequest<User>('/api/users/current', 'GET');
+  public editUser(userId: string, body: Partial<EditUser>): Promise<User> {
+    return this.baseRequest<User>(`/api/users/${userId}`, 'PATCH', body);
   }
 
-  public async getUsers(search: string | undefined, page: number = 0) {
+  public getCurrentUser() {
+    return this.baseRequest<User>('/api/users/current', 'GET');
+  }
+
+  public getUsers(search: string | undefined, page: number = 0) {
     const searchParams = new URLSearchParams();
     searchParams.set('page', page.toString());
     searchParams.set('search', search ?? '');
 
-    return await this.baseRequest<GetUsers>(`/api/users?${searchParams.toString()}`, 'GET');
+    return this.baseRequest<GetUsers>(`/api/users?${searchParams.toString()}`, 'GET');
   }
 
-  public async getUser(userId: string) {
-    return await this.baseRequest<StaffUser>(`/api/users/${userId}`, 'GET');
+  public getUser(userId: string) {
+    return this.baseRequest<StaffUser>(`/api/users/${userId}`, 'GET');
   }
 
-  public async getPosts(tags: string | undefined, page: number = 0, keepLewd: boolean = true) {
+  public getPosts(tags: string | undefined, page: number = 0, keepLewd: boolean = true) {
     const searchParams = new URLSearchParams();
     searchParams.set('page', String(page));
     searchParams.set('tags', tags ?? '');
     searchParams.set('keepLewd', String(keepLewd));
 
-    return await this.baseRequest<GetPosts>(`/api/posts?${searchParams.toString()}`, 'GET');
+    return this.baseRequest<GetPosts>(`/api/posts?${searchParams.toString()}`, 'GET');
   }
 
-  public async getPost(postId: string) {
-    return await this.baseRequest<Post>(`/api/posts/${postId}`, 'GET');
+  public getPost(postId: string) {
+    return this.baseRequest<Post>(`/api/posts/${postId}`, 'GET');
   }
 
-  public async editPost(postId: string, body: Partial<EditPost>) {
-    return await this.baseRequest(`/api/posts/${postId}`, 'PATCH', body);
+  public editPost(postId: string, body: Partial<EditPost>) {
+    return this.baseRequest(`/api/posts/${postId}`, 'PATCH', body);
   }
 
-  public async deletePost(postId: string) {
-    return await this.baseRequest(`/api/posts/${postId}`, 'DELETE');
+  public deletePost(postId: string) {
+    return this.baseRequest(`/api/posts/${postId}`, 'DELETE');
   }
 
-  public async getProviders() {
-    return await this.baseRequest<string[]>('/api/authentication/providers', 'GET');
+  public getProviders() {
+    return this.baseRequest<string[]>('/api/authentication/providers', 'GET');
   }
 
-  public async searchTags(query: string) {
+  public searchTags(query: string) {
     const searchParams = new URLSearchParams();
     searchParams.set('query', query);
 
-    return await this.baseRequest<string[]>(`/api/posts/tags?${searchParams.toString()}`, 'GET');
+    return this.baseRequest<string[]>(`/api/posts/tags?${searchParams.toString()}`, 'GET');
   }
 }

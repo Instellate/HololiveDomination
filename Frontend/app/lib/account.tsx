@@ -27,7 +27,9 @@ export function AccountProvider({ children }: AccountProviderProps) {
         const http = new Http();
         const user = await http.getCurrentUser();
         setAccount(user);
-      } catch (_: unknown) {/* empty */}
+      } catch (_: unknown) {
+        /* empty */
+      }
     })();
   }, [setAccount]);
 
@@ -45,4 +47,10 @@ export function useAccount(): User | undefined {
   const { account } = useContext(AccountProviderContext);
 
   return account;
+}
+
+export function useSignOut(): () => void {
+  const { setAccount } = useContext(AccountProviderContext);
+
+  return () => setAccount(undefined);
 }

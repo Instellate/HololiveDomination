@@ -9,4 +9,5 @@ export default [
     layout('./layouts/articles.tsx', await getAllArticlesRoute()),
   ]),
   route('login', './routes/login.tsx'),
+  route('confirm', './routes/confirm.tsx'),
 ] satisfies RouteConfig;

@@ -2,7 +2,7 @@ import { Outlet } from 'react-router';
 
 export default function Articles() {
   return (
-    <div className="prose dark:prose-invert m-4">
+    <div className="prose m-4 dark:prose-invert">
       <Outlet />
     </div>
   );

@@ -63,11 +63,13 @@ public class AuthenticationController : ControllerBase
         bool providerExists = false;
         foreach (AuthenticationScheme p in providers)
         {
-            if (provider.Equals(p.DisplayName))
+            if (!provider.Equals(p.DisplayName))
             {
-                providerExists = true;
-                break;
+                continue;
             }
+
+            providerExists = true;
+            break;
         }
 
         if (!providerExists)
@@ -95,77 +97,104 @@ public class AuthenticationController : ControllerBase
                 info.ProviderKey,
                 true);
 
-        if (!result.Succeeded)
+        if (result.Succeeded)
         {
-            string? username = info.Principal.FindFirstValue(ClaimTypes.Name);
-            string? email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            return Redirect("/");
+        }
 
-            if (email is not null)
+        string? username = info.Principal.FindFirstValue(ClaimTypes.Name);
+        string? email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+        if (email is not null)
+        {
+            User? maybeUser = await this._userManager.FindByEmailAsync(email);
+            if (maybeUser is not null)
             {
-                User? maybeUser = await this._userManager.FindByEmailAsync(email);
-                if (maybeUser is not null)
+                IdentityResult addLoginStatus =
+                    await this._userManager.AddLoginAsync(maybeUser, info);
+                if (!addLoginStatus.Succeeded)
                 {
-                    IdentityResult addLoginStatus = await this._userManager.AddLoginAsync(maybeUser, info);
-                    if (!addLoginStatus.Succeeded)
-                    {
-                        return BadRequest(addLoginStatus.Errors);
-                    }
-                    
-                    SignInResult newStatus = await this._signInManager.ExternalLoginSignInAsync(
-                        info.LoginProvider,
-                        info.ProviderKey,
-                        true);
-                    if (!newStatus.Succeeded)
-                    {
-                        return StatusCode(500);
-                    }
-                    else
-                    {
-                        return Redirect("/");
-                    }
-                }
-            }
-
-            if (username is null)
-            {
-                return BadRequest("No username provided");
-            }
-
-            if (email is null)
-            {
-                return BadRequest("No email provided");
-            }
-
-            User user = new()
-            {
-                UserName = username,
-                Email = email
-            };
-
-            await this._userManager.CreateAsync(user);
-            await this._userManager.AddLoginAsync(user, info);
-            await this._signInManager.ExternalLoginSignInAsync(info.LoginProvider,
-                info.ProviderKey,
-                true);
-
-            _isFirstUser ??= await this._db.Users.CountAsync() == 1;
-            if (_isFirstUser.Value)
-            {
-                if (await this._roleManager.Roles.FirstOrDefaultAsync(r => r.Name == "Admin") is
-                    null)
-                {
-                    IdentityRole<Guid> role = new()
-                    {
-                        Name = "Admin"
-                    };
-                    await this._roleManager.CreateAsync(role);
+                    return BadRequest(addLoginStatus.Errors);
                 }
 
-                await this._userManager.AddToRoleAsync(user, "Admin");
+                SignInResult newStatus = await this._signInManager.ExternalLoginSignInAsync(
+                    info.LoginProvider,
+                    info.ProviderKey,
+                    true);
+                if (!newStatus.Succeeded)
+                {
+                    return StatusCode(500);
+                }
+
+                return Redirect(!maybeUser.EmailConfirmed ? "/confirm" : "/");
             }
         }
 
-        return Redirect("/");
+        if (username is null)
+        {
+            return BadRequest("No username provided");
+        }
+
+        if (email is null)
+        {
+            return BadRequest("No email provided");
+        }
+
+        return Redirect("/confirm");
+    }
+
+    [HttpPost("confirm")]
+    public async Task<IActionResult> ConfirmEmailAsync()
+    {
+        ExternalLoginInfo? info = await this._signInManager.GetExternalLoginInfoAsync();
+        if (info is null)
+        {
+            return BadRequest("No login info found");
+        }
+
+        SignInResult result
+            = await this._signInManager.ExternalLoginSignInAsync(info.LoginProvider,
+                info.ProviderKey,
+                true);
+        if (result.Succeeded)
+        {
+            return NoContent();
+        }
+
+        string? username = info.Principal.FindFirstValue(ClaimTypes.Name);
+        string? email = info.Principal.FindFirstValue(ClaimTypes.Email);
+        User user = new()
+        {
+            UserName = username,
+            Email = email,
+            EmailConfirmed = true
+        };
+
+        await this._userManager.CreateAsync(user);
+        await this._userManager.AddLoginAsync(user, info);
+        await this._signInManager.ExternalLoginSignInAsync(info.LoginProvider,
+            info.ProviderKey,
+            true);
+        _isFirstUser ??= await this._db.Users.CountAsync() == 1;
+        if (!_isFirstUser.Value)
+        {
+            return NoContent();
+        }
+
+        _isFirstUser = false;
+        if (await this._roleManager.Roles.FirstOrDefaultAsync(r => r.Name == "Admin") is
+            null)
+        {
+            IdentityRole<Guid> role = new()
+            {
+                Name = "Admin"
+            };
+            await this._roleManager.CreateAsync(role);
+        }
+
+        await this._userManager.AddToRoleAsync(user, "Admin");
+
+        return NoContent();
     }
 
     [Authorize]

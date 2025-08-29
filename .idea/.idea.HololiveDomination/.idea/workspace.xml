@@ -11,16 +11,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbbc3517-9d21-4e0b-887f-1ccd88d8b100" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/projectSettingsUpdater.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HololiveDomination/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Domination/Domination.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Domination/Domination.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domination/Controllers/AuthenticationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domination/Controllers/AuthenticationController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Domination/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domination/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/lib/account.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/lib/account.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/lib/http.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/lib/http.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/root.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/root.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/vite.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/yarn.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HololiveDomination.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/HololiveDomination.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HololiveDomination/HololiveDomination.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/HololiveDomination/HololiveDomination.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HololiveDomination/MinioResourceBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HololiveDomination/MinioResourceBuilder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HololiveDomination/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HololiveDomination/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global.json" beforeDir="false" afterPath="$PROJECT_DIR$/global.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,10 +41,21 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/58b3a524fc7e4461850ee6bb93d7e78a13c00/31/9237a084/02000012High.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/58b3a524fc7e4461850ee6bb93d7e78a13c00/31/9237a084/02000012Low.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/6e14c35353c0498a8022eb7ed13b8f4027800/d4/7ea297b6/02000030pdb1High.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4afd6eaa21b44c15b819957c24b8b6071daa00/94/3cfa6a5f/ControllerEndpointRouteBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4d89c31699564cb6850f5611d229f44715800/0b/ce98f477/AuthorizationBuilder.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/58b3a524fc7e4461850ee6bb93d7e78a13c00/ca/03bfeee4/ClaimTypes.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/34dacb4829d3259ad5412aaa6583a02e53acf0df187db3c754a9ac167dcdbd/ResourceBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/.microsoft/usersecrets/6a71e82e-62c1-4a30-8431-137fb0aed103/secrets.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///home/love/RiderProjects/HololiveDomination/Domination/Controllers/AuthenticationController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/love/RiderProjects/HololiveDomination/Domination/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Domination/Structures/EditUserRequest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Frontend/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///home/love/RiderProjects/HololiveDomination/Frontend/package.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HololiveDomination/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/global.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
@@ -56,24 +69,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.Domination: http.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Launch Settings Profile.Domination: https.executor&quot;: &quot;Run&quot;,
-    &quot;Aspire Host.HololiveDomination: http.executor&quot;: &quot;Run&quot;,
-    &quot;Aspire Host.HololiveDomination: https.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;posts&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.Domination: http.executor": "Run",
+    ".NET Launch Settings Profile.Domination: https.executor": "Run",
+    "Aspire Host.HololiveDomination: http.executor": "Run",
+    "Aspire Host.HololiveDomination: https.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "posts",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.inline.completion",
+    "ts.external.directory.path": "/home/love/RiderProjects/HololiveDomination/Frontend/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Aspire Host.HololiveDomination: https">
     <configuration name="HololiveDomination: http" type="AspireHostConfiguration" factoryName="Aspire Host" activateToolWindowBeforeRun="false">
       <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/HololiveDomination/HololiveDomination.csproj" />
@@ -197,7 +211,21 @@
       <workItem from="1756281468407" duration="191000" />
       <workItem from="1756284135581" duration="302000" />
       <workItem from="1756287782784" duration="313000" />
+      <workItem from="1756358431473" duration="175000" />
+      <workItem from="1756362052220" duration="1396000" />
+      <workItem from="1756364983634" duration="983000" />
+      <workItem from="1756394430112" duration="1253000" />
+      <workItem from="1756448777770" duration="3363000" />
     </task>
+    <task id="LOCAL-00001" summary="Updated to .NET 9.0&#10;Removed the need for CORS for development on the frontend">
+      <option name="closed" value="true" />
+      <created>1756358568251</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1756358568251</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,6 +245,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Updated to .NET 9.0&#10;Removed the need for CORS for development on the frontend" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated to .NET 9.0&#10;Removed the need for CORS for development on the frontend" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
