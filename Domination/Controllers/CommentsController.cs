@@ -43,6 +43,11 @@ public class CommentsController : ControllerBase
             return Forbid();
         }
 
+        if (string.IsNullOrWhiteSpace(body.Content))
+        {
+            return BadRequest("Empty content");
+        }
+        
         this._db.Logs.Add(new Log
         {
             By = user,
