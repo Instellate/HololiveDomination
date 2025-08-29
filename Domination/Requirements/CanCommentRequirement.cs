@@ -4,5 +4,5 @@ namespace Domination.Requirements;
 
 public class CanCommentRequirement : IAuthorizationRequirement
 {
-    
+
 }

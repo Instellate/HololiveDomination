@@ -12,6 +12,6 @@ public class Comment
     public required User Author { get; init; }
     public Guid AuthorId { get; init; }
     public required Post Post { get; init; }
-    
+
     public DateTimeOffset CreatedAt { get; init; } = DateTimeOffset.UtcNow;
 }

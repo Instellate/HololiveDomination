@@ -32,7 +32,7 @@ public class UsersController : ControllerBase
     [HttpGet]
     [Authorize(Roles = "Staff, Admin")]
     public async Task<IActionResult> GetUsersAsync([FromQuery] string? search,
-        [FromQuery] [Range(0, int.MaxValue)] int page = 0,
+        [FromQuery][Range(0, int.MaxValue)] int page = 0,
         CancellationToken ct = default)
     {
         List<User> users;

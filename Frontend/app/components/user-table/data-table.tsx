@@ -122,7 +122,7 @@ export function DataTable<TData, TValue>({
           Previous
         </Button>
         <Input
-          className="h-9 w-16 border-input"
+          className="border-input h-9 w-16"
           defaultValue={pagination.pageIndex}
           value={pageValue}
           onKeyDown={(e) => {

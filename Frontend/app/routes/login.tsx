@@ -45,7 +45,7 @@ export default function SignIn({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
-      <div className={cn('flex h-screen w-full items-center justify-center bg-background')}>
+      <div className={cn('bg-background flex h-screen w-full items-center justify-center')}>
         <Card>
           <CardHeader>
             <CardTitle>Login to {import.meta.env.VITE_SITE_TITLE}</CardTitle>

@@ -1,4 +1,4 @@
-import Http, { type Comment as CommentType } from '~/lib/http';
+import Http, { HttpError, type Comment as CommentType } from '~/lib/http';
 import type { Route } from './+types/id';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { Button } from '~/components/ui/button';
@@ -137,10 +137,12 @@ export default function Id({ loaderData }: Route.ComponentProps) {
       setDisableSubmit(true);
       const comment = await new Http().createComment(loaderData.post.id, textarea.current!.value);
       setCommentsData([comment, ...commentsData]);
-    } finally {
-      setDisableSubmit(false);
-      textarea.current!.value = '';
+    } catch (err: unknown) {
+      return; // TODO: Error message
     }
+
+    setDisableSubmit(false);
+    textarea.current!.value = '';
   }, [loaderData, textarea, setDisableSubmit]);
 
   const deleteComment = useCallback(

@@ -9,7 +9,7 @@ public class MinioResource : ContainerResource, IResourceWithConnectionString
         this._username is not null
             ? ReferenceExpression.Create($"{this._username}")
             : ReferenceExpression.Create($"admin");
-        
+
     public string Ip { get; }
     public int Port { get; }
 

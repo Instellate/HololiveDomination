@@ -39,7 +39,7 @@ export default function Confirm() {
 
   return (
     <>
-      <div className={cn('flex h-screen w-full items-center justify-center bg-background')}>
+      <div className={cn('bg-background flex h-screen w-full items-center justify-center')}>
         <Card>
           <CardContent className={cn('my-4')}>
             <Form {...form}>

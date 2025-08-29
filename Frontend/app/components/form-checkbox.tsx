@@ -19,7 +19,7 @@ export default function FormCheckbox({
       <Checkbox id={id} checked={checked} onCheckedChange={onCheckedChange} />
       <label
         htmlFor={id}
-        className="select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        className="text-sm leading-none font-medium select-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       >
         {children}
       </label>

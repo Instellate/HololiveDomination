@@ -29,7 +29,7 @@ export default function Paginator({
               onClick={() => onPageChange(currentPage - 1)}
               isActive={!(currentPage - 1 < 1)}
               className={
-                currentPage - 1 < 1 ? 'pointer-events-none select-none opacity-50' : undefined
+                currentPage - 1 < 1 ? 'pointer-events-none opacity-50 select-none' : undefined
               }
             />
           </PaginationItem>
@@ -42,7 +42,7 @@ export default function Paginator({
               isActive={!(currentPage > totalPages - 1)}
               className={
                 currentPage > totalPages - 1
-                  ? 'pointer-events-none select-none opacity-50'
+                  ? 'pointer-events-none opacity-50 select-none'
                   : undefined
               }
             />

@@ -203,7 +203,7 @@ export default class Http {
     return this.baseRequest(`/api/comments/${id}`, 'DELETE');
   }
 
-    public editComment(id: string, content: string): Promise<void> {
+  public editComment(id: string, content: string): Promise<void> {
     return this.baseRequest(`/api/comments/${id}`, 'PUT', { content });
   }
 }

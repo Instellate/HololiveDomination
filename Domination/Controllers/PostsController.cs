@@ -162,7 +162,7 @@ public class PostsController : ControllerBase
             {
                 continue;
             }
-            
+
             Tag? dbTag = null;
             foreach (Tag t in dbTags)
             {
@@ -278,7 +278,7 @@ public class PostsController : ControllerBase
             Public = true,
             MaxAge = TimeSpan.FromHours(1)
         };
-        Response.Headers.Append("Cache-Control", cacheControl.ToString());
+        this.Response.Headers.Append("Cache-Control", cacheControl.ToString());
 
         stream.Position = 0;
         return File(stream, postInfo.ContentType);
@@ -402,7 +402,7 @@ public class PostsController : ControllerBase
         CancellationToken ct = default)
     {
         Post? post = await this._db.Posts
-            .Include(p => p.Comments.OrderByDescending(c => c.CreatedAt).Skip(page * 10).Take(10))
+            .Include(p => p.Comments.OrderByDescending(c => c.CreatedAt).Skip(page * 10).Take(50))
             .ThenInclude(c => c.Author)
             .AsNoTracking()
             .AsSplitQuery()
@@ -441,6 +441,11 @@ public class PostsController : ControllerBase
             return NotFound();
         }
 
+        if (string.IsNullOrWhiteSpace(body.Content))
+        {
+            return BadRequest("Empty content");
+        }
+
         Comment comment = new()
         {
             Content = body.Content,
@@ -456,7 +461,7 @@ public class PostsController : ControllerBase
             Towards = post.Id,
             Description = $"Created comment {comment.Id}"
         });
-            await this._db.SaveChangesAsync(ct);
+        await this._db.SaveChangesAsync(ct);
 
         return Created("/", new CommentResponse(comment));
     }

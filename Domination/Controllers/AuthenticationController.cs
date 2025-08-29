@@ -33,7 +33,7 @@ public class AuthenticationController : ControllerBase
     [HttpGet("providers")]
     public async Task<IActionResult> GetProvidersAsync()
     {
-        IAuthenticationSchemeProvider schemeProvider = HttpContext.RequestServices
+        IAuthenticationSchemeProvider schemeProvider = this.HttpContext.RequestServices
             .GetRequiredService<IAuthenticationSchemeProvider>();
 
         List<string> providers = [];
@@ -56,7 +56,7 @@ public class AuthenticationController : ControllerBase
             return BadRequest("Provider cannot only contain whitespace");
         }
 
-        IAuthenticationSchemeProvider schemeProvider = HttpContext.RequestServices
+        IAuthenticationSchemeProvider schemeProvider = this.HttpContext.RequestServices
             .GetRequiredService<IAuthenticationSchemeProvider>();
         IEnumerable<AuthenticationScheme> providers = await schemeProvider.GetAllSchemesAsync();
 

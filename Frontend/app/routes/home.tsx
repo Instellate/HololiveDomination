@@ -57,7 +57,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const postsData = useMemo(() => {
     return posts.map((p) => (
       <Link
-        className="flex items-center justify-center rounded-sm border border-border p-6"
+        className="border-border flex items-center justify-center rounded-sm border p-6"
         to={`/posts/${p.id}`}
         key={p.id}
         onClick={(e) => {

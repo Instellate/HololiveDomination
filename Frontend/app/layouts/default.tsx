@@ -119,7 +119,7 @@ export default function Default({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
-      <div className={cn('flex min-h-screen w-full flex-col bg-background p-4')}>
+      <div className={cn('bg-background flex min-h-screen w-full flex-col p-4')}>
         <div className={cn('flex items-center')}>
           <Link to="/">
             <Button variant="link" className={cn('p-0 text-lg')}>

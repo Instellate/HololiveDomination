@@ -180,13 +180,13 @@ export const postsColumns: ColumnDef<Post>[] = [
           <Tooltip>
             <TooltipTrigger asChild>
               <a href={post.url}>
-                <Button variant="link" className="select-text p-0">
+                <Button variant="link" className="p-0 select-text">
                   {post.id}
                 </Button>
               </a>
             </TooltipTrigger>
             <TooltipContent side="bottom">
-              <div className="w-64 rounded-sm border border-border bg-background p-4">
+              <div className="border-border bg-background w-64 rounded-sm border p-4">
                 <img className="rounded-sm" src={`/api/posts/${post.id}/image`} loading="lazy" />
               </div>
             </TooltipContent>

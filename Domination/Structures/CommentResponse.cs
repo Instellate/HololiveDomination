@@ -8,7 +8,7 @@ public class CommentResponse
     public string Content { get; init; }
     public CommentAuthorResponse Author { get; init; }
     public long CreatedAt { get; init; }
-    
+
     public CommentResponse(Comment comment)
     {
         this.Id = comment.Id;
